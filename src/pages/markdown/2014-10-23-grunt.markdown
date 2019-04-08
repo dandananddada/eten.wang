@@ -1,0 +1,246 @@
+---
+path: "/blog/grunt"
+date:   2014-10-23
+title:  Grunt
+summary: Grunt is a task runner can do most of that mundane work for you and your team with basically zero effort.
+---
+Grunt是一个JavaScript构建工具。
+#####【1】Install Grunt
+在安装Grunt前需要安装node NPM。
+首先全局安装grunt-cli（grunt-cli为grunt的命令工具）。
+
+`$ npm install -g grunt-cli`
+
+然后在开发的项目目录下安装grunt。
+
+ `$ npm install grunt`
+
+通过"—version"命令查看当前cli和grunt版本
+
+`$ grunt —version`
+
+通过git安装模板插件
+
+`$ git clone https://github.com/gruntjs/grunt-init-gruntfile.git ~/.grunt-init/gruntplugin`
+
+通过grunt-init --help命令可以查看到Available templates，当前安装的模板名称为gruntplugin。
+安装grunt常用的插件。
+
+`$ npm install grunt-contrib-uglify` 
+
+`$ npm install grunt-contrib-concat` 
+
+`$ npm install grunt-contrib-watch`
+
+以上基本需要安装的东西都完成了，接下来进行配置。
+当然这里你也可以不单独安装需要的plugin，而是通过npm install 命令直接安装package.json文件中引入的全部plugins。
+
+【2】Set Grunt Config
+Grunt项目需要package.json和Gruntfile.js/Gruntfile.coffee这两个配置文件。其中package.json定义了项目中需要引入的plugins，Gruntfile.js定义了Grunt的配置信息。
+首先通过grunt-init [模板名]创建Gruntfile.js文件和package.json文件。
+
+`$ grunt-init gruntplugin `
+
+接下来通过npm init命令根据提示输入项目相关相应参数，完善package.json文件。
+
+`$ npm init`
+
+这里也可以clone我使用的项目
+
+`$ git clone https://github.com/dandananddada/helloGrunt.git`
+
+然后在根目录下执行
+
+`$ npm install`
+
+接下来就可以通过Grunt的命令查看定义的Task，并且执行相应任务了。
+具体任务相关数据配置的说明可参考官网，不在这里细说了。
+
+[http://gruntjs.com/configuring-tasks]
+
+[http://gruntjs.com/configuring-tasks]: http://gruntjs.com/configuring-tasks
+【附录】Gruntfile.js
+
+```javascript
+module.exports = function(grunt) {
+
+    var config = {
+        app: 'app',
+        dist: 'dist'
+    };
+
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        config: config,
+        //sass->css编译插件
+        sass: {
+            options: {
+                sourceMap: false
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.app %>/styles/sass',
+                    src: ['*.scss'],
+                    dest: 'app/styles/',
+                    ext: '.css'
+                }]
+            }
+        },
+        //清除build后生成的文件（清空dist目录）
+        clean: {
+            dist: {
+                files: [{
+                      dot: true,
+                      src: [
+                          '.tmp',
+                          '<%= config.dist %>/*',
+                          '!<%= config.dist %>/.git*'
+                      ]
+                }]
+            },
+        },
+        //合并js和css文件
+        concat: {
+            js: {
+                src: ['<%= config.app %>/js/**/*.js'],
+                dest: '<%= config.dist %>/combine/<%= pkg.name %>.js'
+            },
+            css: {
+                src: ['<%= config.app %>/styles/**/*.css'],
+                dest: '<%= config.dist %>/combine/<%= pkg.name %>.css'  
+            }
+        },
+        // 压缩css文件
+        cssmin: {
+            // 保持目录结构压缩
+            compress: {
+                files: [{
+                      expand: true,
+                      cwd: '<%= config.app %>/styles/',
+                      src: ['*.css', '!*.min.css'],
+                      dest: '<%= config.dist %>/release/css/',
+                      ext: '.min.css'
+                    }]
+            },
+            // 合并为一个文件后压缩
+            build: {
+                files: [{
+                      expand: true,
+                      cwd: '<%= config.dist %>/combine/',
+                      src: ['*.css', '!*.min.css'],
+                      dest: '<%= config.dist %>/release',
+                      ext: '.min.css'
+                    }]
+            }
+        },
+        // 压缩js文件
+        uglify: {
+            options: {
+            banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
+            // 保持目录结构压缩
+            compress: {
+                options: {
+                    mangle: true,
+                    compress: {
+                        drop_console: true
+                    },
+                    report: "min"
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.app %>/js',
+                    src: '**/*.js',
+                    dest: '<%= config.dist %>/release/js',
+                    ext: '.min.js'
+                }]
+            },
+            // 合并为一个文件后压缩
+            build: {
+                options: {
+                    mangle: true,
+                    compress: {
+                        drop_console: true
+                    },
+                    report: "min"
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.dist %>/combine',
+                    src: '**/*.js',
+                    dest: '<%= config.dist %>/release',
+                    ext: '.min.js'
+                }]
+            }
+        },
+        // 配置ctrl+s触发任务
+        watch: {
+            compile: {
+                files: ['<%= config.app %>/styles/sass/**/*.scss'],
+                tasks: ['sass'],
+            },
+            livereload: {
+                options: {
+                    livereload: '<%= connect.options.livereload %>'
+                },
+                files: [
+                    '<%= config.app %>/{,*/}*.html',
+                    '<%= config.app %>/{,*/}*.css',
+                    '<%= config.app %>/images/{,*/}*'
+                ]
+            }
+        },
+        // 将当前站点作为服务器启动
+        connect: {
+            options: {
+                port: 9001,
+                open: true,
+                livereload: 35729,
+                hostname: 'localhost'
+            },
+            livereload: {
+                options: {
+                    middleware: function(connect) {
+                        return [
+                            connect.static(config.app)
+                        ];
+                    }
+                }
+            }
+        },
+        // 针对测试作为服务启动
+        karma: {
+            unit: {
+                configFile: 'karma.conf.js'
+            }
+        }
+    });
+
+    grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-karma');
+
+    // 将sass文件编译为css文件
+    grunt.registerTask('compile', ['sass']);
+    // 清理dist目录
+    // grunt clean,grunt-contrib-clean内置任务
+    // 分别合并js和css文件为一个文件
+    grunt.registerTask('combine',['compile','concat:css','concat:js']);
+    // 保持原目录结构压缩css文件和js文件
+    grunt.registerTask('compress',['compile','cssmin:compress','uglify:compress']);
+    // 部署js文件和css文件（分别将js和css文件合并压缩为一个文件）
+    grunt.registerTask('build',['clean:dist','compile','combine','cssmin:build','uglify:build']);
+    //将当前站点作为服务启动
+    grunt.registerTask('server', ['connect:livereload','watch','watch:compile']);
+    // 启动js单元测试服务
+    grunt.registerTask('test', ['karma']);
+    // 设置grunt默认任务为server
+    grunt.registerTask('default', ['server']);
+};
+```

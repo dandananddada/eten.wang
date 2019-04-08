@@ -1,0 +1,42 @@
+data:
+  year: 2018
+  games:
+  - name: 'Finding Paradise'
+    score: 10
+    platform: 'steam'
+  - name: '旅かえる'
+    score: 8
+    platform: 'App Store'
+  - name: '尼尔·机械纪元'
+    score: 9.8
+    platform: 'PS4'
+  - name: '怪物猎人：世界'
+    score: 8.8
+    platform: 'PS4'
+  - name: 'Far Cry 5'
+    score: 8.8
+    platform: 'Uplay'
+  - name: '巨像之咆哮'
+    score: 8.8
+    platform: 'PS4'
+  - name: '传说法师'
+    score: 8.4
+    platform: 'steam'
+  - name: '战神'
+    score: 9.5
+    platform: 'PS4'
+  - name: '月圆之夜'
+    score: 9
+    platform: 'App Store'
+  - name: '刺客信条：奥德赛'
+    score: 9
+    platform: 'Uplay'
+  - name: '荒野大镖客'
+    score: 9.9
+    platform: 'PS4'
+  - name: 'Florence'
+    score: 9.8
+    platform: 'App Store'
+  - name: 'GRIS'
+    score: 9.4
+    platform: 'steam'

@@ -1,0 +1,8 @@
+@mixin size ($w, $h)
+  $width: ($w / 375) * 100
+  $height: ($width * $h) / $w
+  width: $width + vw
+  height: $height + vw
+
+@function vw ($w)
+  @return ($w / 375) * 100 + vw

@@ -1,0 +1,43 @@
+data:
+  year: 2015
+  games:
+  - name: 'Shadowmatic'
+    score: 8.5
+    platform: 'App Store'
+  - name: 'Ori and the Blind Forest'
+    score: 9.8
+    image: 'https://p0.meituan.net/travelcube/116f29c869dd80ebbc29c07b3f6c6a49226291.jpg'
+    platform: 'steam'
+  - name: '战斗方块剧场'
+    score: 9.4
+    platform: 'steam'
+  - name: '声名狼藉·次子'
+    score: 8.6
+    platform: 'PS4'
+  - name: '血源诅咒'
+    score: 9.7
+    platform: 'PS4'
+  - name: '风之旅人'
+    score: 10
+    platform: 'PS4'
+  - name: 'The Last Of Us'
+    score: 10
+    platform: 'PS4'
+  - name: '战神3'
+    score: 8
+    platform: 'PS4'
+  - name: 'Lifeline'
+    score: 9.4
+    platform: 'App Store'
+  - name: 'Walkr'
+    score: 8.6
+    platform: 'App Store'
+  - name: '刺客心信条·枭雄'
+    score: 8.6
+    platform: 'PS4'
+  - name: 'Her Story'
+    score: 8.8
+    platform: 'App Store'
+  - name: '纪念碑谷'
+    score: 8.5
+    platform: 'App Store'

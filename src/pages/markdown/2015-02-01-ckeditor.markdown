@@ -1,0 +1,224 @@
+---
+layout: post
+categories: rails-gems
+date:   2015-02-01
+path: "/ckeditor-with-rails"
+title:  Ckeditor with Rails
+summary: CKEditor is a WYSIWYG text editor designed to simplify web content creation. It brings common word processing features directly to your web pages. 
+---
+目前ckeditor本身是可以通过js直接配置的，也就是说无关后台语言，拷贝过来就可以直接使用。但是之所以还要通过第三方插件整合CKeditor是因为一般需要文本编辑的时候肯定会包含图片的，正常情况下图片上传是需要走后台的，而官方的CKfinder本身是要收费的，所以需要一个第三方插件将CKeditor和一个图片上传的功能整合起来，这里我采用的插件是galetahub的CKeidtor插件。
+
+【1】install CKeditor
+
+在Gemfile中配置CKeditor插件
+
+	 //Gemfile
+	gem "paperclip"
+	gem 'ckeditor'
+	gem 'responders'
+这里需要引入三个插件，paperclip、ckeditor和responders,其中paperclip是一个图片上传插件，ckeditor就不多说了，responders提供了一些response模块可以简化代码，在ckeditor和paperclip衔接的模块需要依赖，所以也要安装。
+执行命令安装插件
+`$ bundle install`
+
+【2】Add table to your database
+
+执行如下命令生成migration以及models文件
+`rails g ckeditor:install --orm=active_record --backend=paperclip`
+命令成功后会在你的db/migration目录下生成一个ckeditor_assets文件，执行
+`$ rake db:migrate`
+		自动化建立ckeditor_assets表，这个表是用来存储你再进行文本编辑时上传的图片的。
+		之前的命令，除了生成migration文件外还会在models目录下创建一个ckeditor目录，目录下会有三个实体，查看可以发现一个是asset实体，另外两个分别是文件和图片的实体，大体可以知道这个是ckeditor插件用来自动维护上传的图片和文件所需的models，你可以修改has_attached_file 来定义文件存放的路径，默认情况下是存放在public/ckeditor_assets目录下的。
+到目前为止初始化工作就差不多了。
+
+【3】final work
+
+接下来做一些资源文件的配置。
+首先创建我们将会用到的一些js文件，在app/assets/javascripts目录下创建ckeditor文件夹并创建一个config.js文件（这里config.js文件有点长不方便阅读，完整的代码我就放在最后的附录里了。）
+
+```javascript
+if (typeof(CKEDITOR) != 'undefined') {
+    CKEDITOR.editorConfig = function(config) { 
+		//... some config here
+	};
+}
+```
+
+之后在application.js中引入这个文件，同时引入ckeditor的初始化文件
+```
+//= require ckeditor/init
+//= require ckeditor/config
+```
+采用这种方式的话就不需要在application.html.erb中引入ckeditor.js并写初始化js代码了。
+这个时候可以在_form中使用ckeditor了。
+
+```ruby
+<%= f.cktext_area :content, :class => 'class_name', :ckeditor => {:language => 'zh-cn', :toolbar => 'Full' } 
+```
+这里你可以用symbol配置语言和工具栏，你也可以用config.js默认配置的选项。
+这样你就可以用ckeditor进行编辑并存储为html代码了，最后说明下显示的时候如何将html代码渲染成图文到页面
+```rails
+ <%= raw(@message.content) %>
+```
+在你要显示的内容前用raw方法转换下就ok了。
+
+【4】附录
+
+####app/assets/javascript/ckeditor/config.js
+
+```javascript
+/*
+Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://ckeditor.com/license
+*/
+if (typeof(CKEDITOR) != 'undefined') {
+    CKEDITOR.editorConfig = function(config) {
+        // Define changes to default configuration here. For example:
+        config.language = 'zh-cn';
+        // config.uiColor = '#AADC6E';
+        /* Filebrowser routes */
+        // The location of an external file browser, that should be launched when "Browse Server" button is pressed.
+        config.filebrowserBrowseUrl = "/ckeditor/attachment_files";
+
+        // The location of an external file browser, that should be launched when "Browse Server" button is pressed in the Flash dialog.
+        config.filebrowserFlashBrowseUrl = "/ckeditor/attachment_files";
+
+        // The location of a script that handles file uploads in the Flash dialog.
+        config.filebrowserFlashUploadUrl = "/ckeditor/attachment_files";
+
+        // The location of an external file browser, that should be launched when "Browse Server" button is pressed in the Link tab of Image dialog.
+        config.filebrowserImageBrowseLinkUrl = "/ckeditor/pictures";
+
+        // The location of an external file browser, that should be launched when "Browse Server" button is pressed in the Image dialog.
+        config.filebrowserImageBrowseUrl = "/ckeditor/pictures";
+
+        // The location of a script that handles file uploads in the Image dialog.
+        config.filebrowserImageUploadUrl = "/ckeditor/pictures";
+
+        // The location of a script that handles file uploads.
+        config.filebrowserUploadUrl = "/ckeditor/attachment_files";
+
+        config.allowedContent = true;
+
+        // Rails CSRF token
+        config.filebrowserParams = function() {
+            var csrf_token, csrf_param, meta, metas = document.getElementsByTagName('meta'),
+            params = new Object();
+
+            for (var i = 0; i < metas.length; i++) {
+                meta = metas[i];
+
+                switch (meta.name) {
+                case "csrf-token":
+                    csrf_token = meta.content;
+                    break;
+                case "csrf-param":
+                    csrf_param = meta.content;
+                    break;
+                default:
+                    continue;
+                }
+            }
+
+            if (csrf_param !== undefined && csrf_token !== undefined) {
+                params[csrf_param] = csrf_token;
+            }
+
+            return params;
+        };
+
+        config.addQueryString = function(url, params) {
+            var queryString = [];
+
+            if (!params) {
+                return url;
+            } else {
+                for (var i in params) queryString.push(i + "=" + encodeURIComponent(params[i]));
+            }
+
+            return url + ((url.indexOf("?") != -1) ? "&": "?") + queryString.join("&");
+        };
+
+        // Integrate Rails CSRF token into file upload dialogs (link, image, attachment and flash)
+        CKEDITOR.on('dialogDefinition',
+        function(ev) {
+            // Take the dialog name and its definition from the event data.
+            var dialogName = ev.data.name;
+            var dialogDefinition = ev.data.definition;
+            var content, upload;
+
+            if (CKEDITOR.tools.indexOf(['link', 'image', 'attachment', 'flash'], dialogName) > -1) {
+                content = (dialogDefinition.getContents('Upload') || dialogDefinition.getContents('upload'));
+                upload = (content == null ? null: content.get('upload'));
+
+                if (upload && upload.filebrowser && upload.filebrowser['params'] === undefined) {
+                    upload.filebrowser['params'] = config.filebrowserParams();
+                    upload.action = config.addQueryString(upload.action, upload.filebrowser['params']);
+                }
+            }
+        });
+
+        // Toolbar groups configuration.
+        config.toolbar = [{
+            name: 'document',
+            groups: ['mode', 'document', 'doctools'],
+            items: ['Source']
+        },
+        {
+            name: 'clipboard',
+            groups: ['clipboard', 'undo'],
+            items: ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']
+        },
+        // { name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Find', 'Replace', '-', 'SelectAll', '-', 'Scayt' ] },
+        // { name: 'forms', items: [ 'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField' ] },
+        {
+            name: 'links',
+            items: ['Link', 'Unlink', 'Anchor']
+        },
+        {
+            name: 'insert',
+            items: ['Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar']
+        },
+        {
+            name: 'paragraph',
+            groups: ['list', 'indent', 'blocks', 'align', 'bidi'],
+            items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+        },
+        '/', {
+            name: 'styles',
+            items: ['Styles', 'Format', 'Font', 'FontSize']
+        },
+        {
+            name: 'colors',
+            items: ['TextColor', 'BGColor']
+        },
+        {
+            name: 'basicstyles',
+            groups: ['basicstyles', 'cleanup'],
+            items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']
+        }];
+
+        config.toolbar_mini = [{
+            name: 'paragraph',
+            groups: ['list', 'indent', 'blocks', 'align', 'bidi'],
+            items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+        },
+        {
+            name: 'styles',
+            items: ['Font', 'FontSize']
+        },
+        {
+            name: 'colors',
+            items: ['TextColor', 'BGColor']
+        },
+        {
+            name: 'basicstyles',
+            groups: ['basicstyles', 'cleanup'],
+            items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']
+        },
+        {
+            name: 'insert',
+            items: ['Image', 'Table', 'HorizontalRule', 'SpecialChar']
+        }];
+    };
+}
+```

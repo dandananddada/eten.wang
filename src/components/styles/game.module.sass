@@ -1,0 +1,68 @@
+@import './reset'
+@import './helper' 
+
+@font-face
+  font-family: DINEngschrift-Alternate
+  src: url('../../fonts/DINEngschrift-Alternate.otf')
+@font-face
+  font-family: MFZiZai_Noncommercial-Regular
+  src: url('../../fonts/MFZiZai_Noncommercial-Regular.ttf')
+
+body
+  background-color: #F3F3F3
+
+.games
+  display: flex
+  justify-content: center
+  flex-wrap: wrap
+  margin-top: vw(60)
+
+.game
+  width: vw(260)
+  margin-bottom: vw(20)
+  border-radius: vw(8)
+  box-shadow: 0 vw(4) vw(12) 0 rgba(0, 0, 0, 0.09)
+
+.image
+  +size(260, 160)
+  background-color: #FFF
+  border-width: 0
+  border-top-left-radius: vw(8)
+  border-top-right-radius: vw(8)
+
+.bottom-container
+  display: flex
+  height: vw(36)
+  padding: vw(10) vw(6) vw(12) vw(10)
+  background-color: #FFF
+  border-bottom-left-radius: vw(8)
+  border-bottom-right-radius: vw(8)
+
+.score
+  +size(36, 36)
+  display: flex
+  justify-content: center
+  align-items: center
+  margin-right: vw(8)
+  color: #FFF
+  background-color: #29A987
+  border-radius: vw(5)
+  font-size: vw(28)
+  font-family: DINEngschrift-Alternate
+
+.platform
+  height: vw(12)
+  margin-top: 0
+  // margin-bottom: 0
+  color: #9A9A9D
+  font-size: vw(12)
+  font-weight: 100 
+  font-family: MFZiZai_Noncommercial-Regular
+  // font-family: 'DINEngschrift-Alternate'
+
+.name
+  margin: vw(3) 0
+  color: #010101
+  font-size: vw(16)
+  // font-family: MFDianHei_Noncommercial-Regular
+  font-weight: 400

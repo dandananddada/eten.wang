@@ -1,0 +1,188 @@
+---
+layout     : post
+categories : frontend
+date       : 2014-11-05
+path       : "/sass"
+title      : sass
+summary    : Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.
+---
+Sass是基于Ruby的css编译工具，可以通过Sass语法简化css代码的书写，对于大型的需要对css进行管理的项目而言更利于css的开发和管理。
+
+ Sass有两种后缀名文件：一种后缀名为sass；另一种就是我们这里使用的scss文件，这种和我们平时写的css文件格式差不多，使用大括号包裹的。
+
+【1】文件导入
+
+导入Sass文件：`@improt "a"` , 导入Css文件 `@import "reset.css"`。
+需要注意的是导入Sass文件转译为css文件后是生成为一个css文件。
+
+【2】注释
+
+Sass有两种注释方式，一种是标准的css注释方式`/* */`，另一种则是`//`双斜杆形式的单行注释。
+需要注意的是单行注释不会被转译到css文件中。
+
+【3】变量
+
+在sass中你也可以声明变量，并在整个样式表中使用，sass支持任何变量（例如：颜色、数值、文本等）。
+
+sass声明变量必须是$开头，后面紧跟变量名，而变量值和变量名之间就需要使用冒号(:)分隔开。如果值后面加上!default则表示默认值。
+
+```
+$baseFontSize: 14px !default;
+font-size: $baseFontSize;
+```
+
+一个变量可以包含多个值，然后通过`nth($variables,index)`来调用其中的某个值。
+
+```
+$linkColor: #08c #333 !default;//第一个值为默认值。
+color:nth($linkColor,1);
+```
+
+【4】嵌套
+
+Sass的嵌套包括两种：一种是选择器的嵌套；另一种是属性的嵌套。我们一般说起或用到的都是选择器的嵌套。
+
+选择器嵌套
+
+所谓选择器嵌套指的是在一个选择器中嵌套另一个选择器来实现继承，从而增加了sass文件的结构性和可读性。
+在选择器嵌套中，可以使用&表示父元素选择器。
+
+```
+#top_nav
+{
+    line-height: 40px;
+    background: $bgColor;
+    li
+    {
+        float:left;
+    }
+    a
+    {
+        display: block;
+        padding: 20px;
+        color: $mainColor;
+        $:hover
+        {
+            color:nth($linkColor,1);
+        }
+    }
+}
+```
+
+属性嵌套 
+
+所谓属性嵌套指的是有些属性拥有同一个开始单词，如`border-width`，`border-color`都是以border开头。
+
+```
+.fakeshadow
+{
+    border:
+    {
+        style:solid;
+        left: 
+        {
+            width:2px;
+            color: #ccc;
+        }
+        right:
+        {
+            width: 2px;
+            color: #ccc;
+        }
+    }
+}
+```
+
+【5】混合
+
+mixin是sass中最强大的特性，他可以将一部分样式抽出，作为单独定义的模块，被很多选择器重复使用。
+
+在sass中声明一个mixins时需要使用`@mixin`，然后后面紧跟mixins的名，他也可以定义参数，同时可以给这个参数设置一个默认值，但参数名是使用`$`符号开始，而且和参数值之间需要使用冒号`：`分开，多个参数以逗号分开。
+
+这里又有另外一种情况，那就是如果一个属性值可以有多个值，如`box-shadow`和`transition`等，那么我们的参数就可以用变量名加三个点表示，如`$variables...`。
+
+```sass
+//声明mixins
+@mixin opacity($opacity: 50)
+{
+    //注意sass运算符前后必须加空格
+    opacity: $opacity / 100;
+    filter:alpha(opacity=$opacity);
+}
+@mixin box-shadow($shadow...)
+{
+    -moz-box-shadow:$shadow;
+    box-shadow: $shadow;
+}
+
+//调用mixins
+.opacity
+{
+    @include opacity;
+}
+.opacity-80
+{
+    @include opacity(80);
+}
+.box
+{
+    @include box-shadow(0 5px 5px rgba(0,0,0,0.3));
+    border:1px solid #ccc;
+}
+```
+
+【6】继承
+
+继承通过@extend方法实现选择器的多个定义。
+
+```sass
+h1
+{
+    border: 4px solid #ff9aa9;
+}
+.speaker
+{
+    @extend h1;
+    border-width: 2px;
+}
+```
+
+【7】运算
+
+Sass具有运算的特性，可以对数值型的Value(如：数字、颜色、变量等)进行加减乘除四则运算。请注意运算符前后请留一个空格，不然会出错。
+
+【8】函数
+
+函数声明
+
+```
+@function pxToRem($px)
+{
+    @return $px / $baseFontSize * 1rem;
+}
+
+    函数调用
+
+.function
+{
+    font-size: pxToRem(16px);
+}
+```
+
+【9】变量范围
+
+变量范围涉及全局变量和局部变量，全局变量会被局部变量覆盖，局部变量无法在全局内调用。
+
+【10】条件判断
+
+if可一个条件单独使用，也可以和`@else`结合多条件使用
+
+for循环有两种形式，分别为`：@for $var from through`和`@for $var from to`
+
+【附录】参考w3cplus网站学习
+
+[w3cplus]
+
+[w3cplus]: http://www.w3cplus.com/sassguide/index.html
+
+

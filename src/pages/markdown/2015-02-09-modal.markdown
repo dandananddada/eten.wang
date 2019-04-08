@@ -1,0 +1,97 @@
+---
+layout: post
+categories: rails-gems
+date:   2015-02-09
+path:  "/bootstrap-modal-with-rails"
+title: Bootstrap modal with Rails
+summary: Extends Bootstrap's native modals to provide additional functionality.
+---
+bootstrap内置的js插件中有一个模态框模块modal，对于小型表单进行编辑的时候使用模态框是一个相对更合理的选择。这里说明下如何在rails中使用modal。
+
+【1】install boostrap
+
+在Gemfiel中配置bootstrap插件
+
+	gem "twitter-bootstrap-rails"
+然后执行命令
+`$ bundle install`
+这样bootstrap插件就安装成功了。
+在application.js中配置引入modal模块。
+
+```
+//= require twitter/bootstrap
+```
+
+【2】modal for model create
+
+首先在index.html.erb添加模态框框架。
+
+```html
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+```
+添加新建按钮
+
+```html
+<a href="<%= new_controller_name_path %>" 
+   class="btn btn-primary" 
+   data-toggle="modal" 
+   data-target="#myModal">create
+</a>
+```
+但是这里要注意，默认情况下rails会渲染views/layouts下的模板，需要在controller中设置new方法的render layout为false。
+
+```ruby
+def new
+  @model = Model.new
+  render layout: false
+end
+```
+最后在`new.html.erb`中加入modal主体。
+
+```html
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+		&times;
+	</button>
+	<h4 class="modal-title" id="myModalLabel">Modal Title</h4>
+</div>
+<div class="modal-body">
+	<%= render partial ... %>
+</div>
+<div class="modal-footer">
+	<a href="javascript:submit()" class="btn btn-primary">Submit</a>
+	<a class="btn btn-default" data-dismiss="modal">Back</a>
+</div>
+```
+
+【3】modal for edit model
+
+修改部分针对每一条记录实例化出一个模态框，并分别调用。
+ 
+```ruby
+  <% @models.each do |model| %>
+    <a href="<%= edit_model_path(model) %>"
+       class="btn btn-primary" 
+       data-toggle="modal" 
+       data-target="#myModal_<%= model.id %>">Edit
+    </a>  
+    <div class="modal fade" 
+         id="myModal_<%= model.id %>" 
+         tabindex="-1" 
+         role="dialog" 
+         aria-labelledby="myModal" 
+         aria-hidden="true">
+         <div class="modal-dialog">
+              <div class="modal-content">
+                <!-- render form -->
+              </div>
+         </div>
+    </div><!-- end dialog -->
+   <% end %>
+```
+controller中edit方法同样设置`render layout: false`，对于增加和修改页表单相同的情况直接在`new.html.erb`和`edit.html.erb`中使用`<%= render 'form' '%>`就可以，模态框主体内容在`_form.html.erb`中定义即可。
