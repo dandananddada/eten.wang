@@ -38,5 +38,6 @@ data:
     score: 9.8
     platform: 'App Store'
   - name: 'GRIS'
-    score: 9.4
+    image: 'https://p0.meituan.net/travelcube/2cd965d6bf1ffaabb3e07a88f33570728153.jpg'
+    score: 9
     platform: 'steam'

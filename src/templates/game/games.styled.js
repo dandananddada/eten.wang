@@ -1,20 +1,26 @@
 import styled, { createGlobalStyle } from "styled-components"
 import WH from "../../helper/wh"
+import DINEngschriftAlternate from "../../fonts/DINEngschrift-Alternate.otf"
+import MFZiZaiNoncommercialRegular from "../../fonts/MFZiZai_Noncommercial-Regular.ttf"
 
-export default createGlobalStyle `
+export const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: "DINEngschrift-Alternate";
+    font-family: 'DINEngschrift-Alternate';
     font-style: normal;
     font-weight: normal;
-    src: url('../fonts/DINEngschrift-Alternate.otf');
+    src: local('DINEngschrift-Alternate'), url(${DINEngschriftAlternate}) format('truetype');
   }
   @font-face {
-    font-family: "MFZiZai_Noncommercial-Regular";
+    font-family: 'MFZiZai_Noncommercial-Regular';
     font-style: normal;
     font-weight: normal;
-    src: url('../fonts/MFZiZai_Noncommercial-Regular.ttf');
+    src: url(${MFZiZaiNoncommercialRegular}) format('truetype');
   }
-`  
+  body {
+    background-color: #F3F3F3;
+  }
+`
+console.log(DINEngschriftAlternate);
 export const Games = styled.div`
   display: flex;
   justify-content: center;
@@ -32,13 +38,13 @@ export const Title = styled.div`
 `
 
 export const Game = styled.div`
-  width: ${WH(260)};
+  width: ${WH(280)};
   margin-bottom: ${WH(20)};
   border-radius: ${WH(8)};
   box-shadow: 0 ${WH(4)} ${WH(12)} 0 rgba(0, 0, 0, 0.09);
 `
 export const Image = styled.img`
-  ${WH(260, 160)};
+  width: ${WH(280)}
   margin-bottom: 0;
   background-color: #FFF;
   border-width: 0;
