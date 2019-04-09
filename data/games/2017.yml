@@ -9,6 +9,10 @@ data:
     image: 'https://p0.meituan.net/travelcube/4cce27cd7c00c4e9df1c978ac14674be22747.jpg'
     score: 7
     platform: 'App Store'
+  - name: '塞尔达传说：荒野之息'
+    image: 'https://p0.meituan.net/travelcube/ba6b804f8c6362c9179cc83dc8969b97141370.jpg'
+    score: 10
+    platform: 'Switch'
   - name: '仁王'
     image: 'https://p0.meituan.net/travelcube/f9394bf27f089d1f9bc7f9e13933beae104265.jpg'
     score: 9.8

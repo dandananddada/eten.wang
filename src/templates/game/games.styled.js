@@ -43,13 +43,17 @@ export const Game = styled.div`
   border-radius: ${WH(8)};
   box-shadow: 0 ${WH(4)} ${WH(12)} 0 rgba(0, 0, 0, 0.09);
 `
-export const Image = styled.img`
-  width: ${WH(280)}
+export const Image = styled.image`
+  display: flex;
+  width: ${WH(280)};
   margin-bottom: 0;
   background-color: #FFF;
   border-width: 0;
   border-top-left-radius: ${WH(8)};
   border-top-right-radius: ${WH(8)};
+  // background-size: contain;
+  // background-image: url(${props => props.image});
+  
 `
 export const BottomContainer = styled.div`
   display: flex;
