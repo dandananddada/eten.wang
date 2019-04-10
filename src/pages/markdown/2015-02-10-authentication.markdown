@@ -1,8 +1,8 @@
 ---
 layout: post
-categories: rails-gems
+category: rails-gems
 date:   2015-02-10
-path:  "/devise-with-rails"
+path:  devise-with-rails
 title: Devise with Rails
 summary: Devise is a flexible authentication solution for Rails based on Warden.
 ---

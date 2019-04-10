@@ -4,10 +4,7 @@
  * See: https://www.gatsbyjs.org/docs/node-apis/
  */
 
-// You can delete this file if you're not using it
-
 const path = require("path")
-
 exports.createPages = async ({ actions, graphql }) => {
   const { createPage } = actions
 
@@ -53,6 +50,7 @@ exports.createPages = async ({ actions, graphql }) => {
         edges {
           node {
             frontmatter {
+              category,
               path
             }
           }
@@ -64,12 +62,36 @@ exports.createPages = async ({ actions, graphql }) => {
     return Promise.reject(markdownResult.errors)
   }
 
-  const blogTemplate = path.resolve(`src/templates/blog/blog.js`)
-  markdownResult.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  const ROOT_PATH = '/posts'
+  const BlogContentsTamplate = path.resolve(`src/templates/blog/contents.js`)
+  const BlogPageTemplate = path.resolve(`src/templates/blog/page.js`)
+  const posts = markdownResult.data.allMarkdownRemark.edges
+  const postsPerPage = 7
+  const numPages = Math.ceil(posts.length / postsPerPage)
+  Array.from({ length: numPages }).forEach((_, i) => {
+    const page = i+1
     createPage({
-      path: node.frontmatter.path,
-      component: blogTemplate,
-      context: {}, // additional data can be passed via context
+      path: i === 0 ? ROOT_PATH : `${ROOT_PATH}/${page}`,
+      component: BlogContentsTamplate,
+      context: {
+        limit: postsPerPage,
+        offset: i * postsPerPage,
+        prevPage: i < 1 ? '' : i,
+        nextPage: numPages <= page ? '' : page + 1
+      }
+    })
+  }) 
+  posts.forEach(({ node }) => {
+    const { path: location, category } = node.frontmatter
+    const path = `${ROOT_PATH}/${category}/${location}`
+    // page.js
+    createPage({
+      path,
+      component: BlogPageTemplate,
+      context: {
+        location,
+        category
+      }
     })
   })
 }

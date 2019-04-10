@@ -1,5 +1,6 @@
 ---
-path: "/blog/grunt"
+path: grunt
+category: frontend
 date:   2014-10-23
 title:  Grunt
 summary: Grunt is a task runner can do most of that mundane work for you and your team with basically zero effort.

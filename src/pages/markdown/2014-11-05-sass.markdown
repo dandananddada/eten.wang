@@ -1,8 +1,8 @@
 ---
 layout     : post
-categories : frontend
+category   : frontend
 date       : 2014-11-05
-path       : "/sass"
+path       : sass
 title      : sass
 summary    : Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.
 ---

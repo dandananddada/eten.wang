@@ -1,7 +1,8 @@
 ---
-path       : "/sublime-text"
+path       : sublime-text
 date       : 2014-10-29
-title      : "Sublime Text"
+title      : Sublime Text
+category   : frontend
 summary    : Sublime Text is a cross-platform text and source code editor with a Python application programming interface.
 ---
 Sublime Text是一款相对好用的前端开发工具，并且可以无限期的免费试用。

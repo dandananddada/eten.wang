@@ -1,8 +1,8 @@
 ---
 layout: post
-categories: rails-gems
+category: rails-gems
 date:   2015-02-09
-path:  "/bootstrap-modal-with-rails"
+path:  bootstrap-modal-with-rails
 title: Bootstrap modal with Rails
 summary: Extends Bootstrap's native modals to provide additional functionality.
 ---

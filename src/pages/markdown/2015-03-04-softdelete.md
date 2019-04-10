@@ -1,8 +1,8 @@
 ---
 layout: post
-categories: rails-gems
+category: rails-gems
 date:   2015-03-04
-path:  "/soft-delete-with-rails"
+path:  soft-delete-with-rails
 title:  Soft delete with Rails
 summary: A Rails plugin to add soft delete which can be used to hide records instead of deleting them, making them recoverable later.
 ---
