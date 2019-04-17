@@ -11,7 +11,7 @@ data:
   - name: '战斗方块剧场'
     score: 9.4
     platform: 'steam'
-  - name: '声名狼藉·次子'
+  - name: '声名狼藉：次子'
     score: 8.6
     platform: 'PS4'
   - name: '血源诅咒'
@@ -27,17 +27,17 @@ data:
     score: 8
     platform: 'PS4'
   - name: 'Lifeline'
-    score: 9.4
+    score: 9
     platform: 'App Store'
   - name: 'Walkr'
     score: 8.6
     platform: 'App Store'
-  - name: '刺客心信条·枭雄'
-    score: 8.6
+  - name: '刺客心信条：枭雄'
+    score: 8.8
     platform: 'PS4'
   - name: 'Her Story'
-    score: 8.8
+    score: 8.6
     platform: 'App Store'
   - name: '纪念碑谷'
-    score: 8.5
+    score: 8.6
     platform: 'App Store'

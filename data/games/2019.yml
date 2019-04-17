@@ -1,7 +1,7 @@
 data:
   year: 2019
   games:
-  - name: '地平线 零之曙光'
+  - name: '地平线：零之曙光'
     image: 'https://p0.meituan.net/travelcube/011fbaac336e4fb2227126d90823fe8497822.jpg'
     score: 9.4
     platform: 'PS4'

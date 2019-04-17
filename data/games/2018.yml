@@ -7,7 +7,7 @@ data:
   - name: '旅かえる'
     score: 8
     platform: 'App Store'
-  - name: '尼尔·机械纪元'
+  - name: '尼尔：机械纪元'
     score: 9.8
     platform: 'PS4'
   - name: '怪物猎人：世界'
@@ -16,6 +16,9 @@ data:
   - name: 'Far Cry 5'
     score: 8.8
     platform: 'Uplay'
+  - name: '星之卡比：新星同盟'
+    score: 8.6
+    platform: 'switch'
   - name: '巨像之咆哮'
     score: 8.8
     platform: 'PS4'
@@ -25,19 +28,24 @@ data:
   - name: '战神'
     score: 9.5
     platform: 'PS4'
+  - name: 'Just Dance 2018'
+    score: 8.6
+    platform: 'switch'
   - name: '月圆之夜'
     score: 9
     platform: 'App Store'
   - name: '刺客信条：奥德赛'
     score: 9
     platform: 'Uplay'
-  - name: '荒野大镖客'
-    score: 9.9
+  - name: '荒野大镖客：救赎2'
+    score: 10
     platform: 'PS4'
   - name: 'Florence'
-    score: 9.8
+    score: 9.4
     platform: 'App Store'
   - name: 'GRIS'
-    image: 'https://p0.meituan.net/travelcube/2cd965d6bf1ffaabb3e07a88f33570728153.jpg'
     score: 9
     platform: 'steam'
+  - name: '任天堂全明星大乱斗：特别版'
+    score: 9.6
+    platform: 'switch'

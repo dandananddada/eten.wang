@@ -1,39 +1,59 @@
 data: 
   year: 2016
   games:
-  - name: 'The Swords'
-    score: 9.2
+  - name: 'Splatoon'
+    score: 9.8
+    platform: 'Wii U'
+    day: '01-28'
+  - name: '超级马里奥赛车8'
+    score: 9
+    platform: 'Wii U'
+    day: '01-30'
+  - name: '说剑'
+    score: 9
     platform: 'App Store'
-  - name: '火影忍者·究极忍者风暴4'
+    day: '02-19'
+  - name: '火影忍者：究极忍者风暴4'
     score: 7
     platform: 'PS4'
-  - name: '战斗吧剑灵'
-    score: 8
-    platform: 'App Store' 
-  - name: '暴雨'
-    score: 10
-    platform: 'PS4'
+    day: '04-11'
   - name: '神秘海域4：盗贼末路'
     score: 9.6 
     platform: 'PS4'
-  - name: 'Human Resource Machine'
-    score: 8.9
+    day: '04-22'
+  - name: '战斗吧剑灵'
+    score: 8
+    platform: 'App Store' 
+    day: '05-08'
+  - name: '人类资源机器'
+    score: 8.8
     platform: 'App Store'
-  - name: 'ペルソナ５'
-    score: 9.8
+    day: '06-23'
+  - name: '暴雨'
+    score: 10
     platform: 'PS4'
+    day: '07-03'
   - name: 'INSIDE'
     score: 10
     platform: 'steam'
+    day: '10-02'
   - name: 'The Bug Butcher'
     score: 8.6
     platform: 'App Store'
+    day: '10-24'
+  - name: 'ペルソナ5'
+    score: 9.8
+    platform: 'PS4'
+    day: '10-30'
+  - name: '精灵宝可梦：月亮'
+    score: 9.6
+    platform: '3DS'
+    day: '11-25'
   - name: 'Beholder'
-    score: 9.7
+    score: 9.8
     platform: 'steam'
-  - name: '晶体管'
-    score: 9
+    day: '12-24'
+  - name: 'The Wolf Among Us'
+    score: 9.4
     platform: 'steam'
-  - name: 'Wolf Among Us'
-    score: 9.2
-    platform: 'steam'
+    day: '12-31'

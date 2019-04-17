@@ -20,7 +20,6 @@ export const GlobalStyle = createGlobalStyle`
     background-color: #F3F3F3;
   }
 `
-console.log(DINEngschriftAlternate);
 export const Games = styled.div`
   display: flex;
   justify-content: center;
@@ -43,7 +42,7 @@ export const Game = styled.div`
   border-radius: ${WH(8)};
   box-shadow: 0 ${WH(4)} ${WH(12)} 0 rgba(0, 0, 0, 0.09);
 `
-export const Image = styled.image`
+export const Image = styled.img`
   display: flex;
   width: ${WH(280)};
   margin-bottom: 0;
