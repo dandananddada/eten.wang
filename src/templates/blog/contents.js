@@ -28,7 +28,7 @@ export default function BlogContentsTamplate ({ pageContext, data, // this prop 
                 const { path, category, date, title, summary } = node.frontmatter
                 const link = `${PATH}${category}/${path}/`
                 return (
-                  <li className="post">
+                  <li className="post" key={title}>
                     <span className="post-meta">{ date }</span>
                     <h2>
                       <a className="post-link" href={link}>{ title }</a>
