@@ -1,0 +1,8 @@
+---
+layout: post
+category: frontend
+date:   2019-05-17
+path: tcp 
+title: Transmission Control Protocol
+summary: 'The Hypertext Transfer Protocol (HTTP) is an application protocol for distributed, collaborative, hypermedia information systems'
+---

@@ -1,0 +1,118 @@
+---
+layout: post
+category: frontend
+date:   2019-05-17
+path:  https
+title: Hypertext Transfer Protocol Secure
+summary: 'The Hypertext Transfer Protocol (HTTP) is an application protocol for distributed, collaborative, hypermedia information systems'
+---
+
+### What is https
+
+HTTPS stands for Hyper Text Transfer Protocol Secure. It is a protocol for securing the communication between two systems e.g. the browser and the web server.
+
+HTTPS established an encrypted link between the browser and the web server using the Secure Socket Layer (SSL) or Transport Layer Security (TLS) protocols. TLS is the new version of SSL.
+
+### How SSL works
+
+SSL fundamentally works with the following concepts:
+
+- Asymmetric Cryptography
+- Symmetric Cryptography
+
+#### Asymmetric Cryptography
+
+Asymmetric cryptography uses a mathematically-related key pair to encrypt and decrypt data. In a key pair, one key is shared with anyone who is interested in a communication. This is called Public Key. The other key in the key pair is kept secret and is called Private Key.
+
+![不对称加密](https://www.tutorialsteacher.com/Content/images/https/asymmetric-cryptography.png)
+
+SSL uses asymmetric cryptography to initiate the communication which is known as SSL handshake. Most commonly used asymmetric key encryption algorithms.
+
+#### Symmetric Cryptography
+
+In the symmetric cryptography, there is only one key which encrypts and decrypts the data. Both sender and receiver should have this key, which is only known to them.
+
+![对称加密](https://www.tutorialsteacher.com/Content/images/https/symmetric-cryptography.png)
+
+SSL uses symmetric cryptography using the session key after the initial handshake is done. The most widely used symmetric algorithms are AES-128, AES-192 and AES-256.
+
+#### Data Transfer over SSL
+
+SSL protocol uses asymmetric and symmetric cryptography to transfer data securely, which is mainly divided into two steps: the **SSL handshake** and the **actual data transfer**.
+
+
+##### SSL handshake
+
+The SSL handshake is an asymmetric cryptography which allows the browser to verify the web server, get the public key and establish a secure connection before the beginning of the actual data transfer.
+
+![SSL Handshake](https://www.tutorialsteacher.com/Content/images/https/ssl-handshack.png)
+
+1. The client sends a "client hello" message. This includes the client's SSL version number, cipher settings, session-specific data and other information that the server needs to communicate with the client using SSL.
+
+2. The server responds with a "server hello" message. This includes the server's SSL version number, cipher settings, session-specific data, an **SSL certificate** with a **public key** and other information that the client needs to communicate with the server over SSL.
+
+3. The client verifies the server's SSL certificate from CA (Certificate Authority) and authenticates the server. If the authentication fails, then the client refuses the SSL connection and throws an exception. If the authentication next.
+
+4. The client creates a session key, encrypts it with the server's public key and sends it to the server.
+
+5. The server decrypts the session key with its private key and sends the acknowledgement to the client encrypted with the session key.
+
+##### Actual data transfer
+
+The client and the server now use a shared session key to encrypt and decrypt actual data and transfer it.
+
+![Actual data transfer](https://www.tutorialsteacher.com/Content/images/https/ssl-data-transfer.png)
+
+### What is the SSL Certificate?
+
+The SSL certificate plays an important role in securing the communication between two systems.
+
+The SSL certificate contains the owner's public key and other details. The web server sends a public key to the browser through an SSL certificate and the browser verifies it and authenticates the web server using the SSL certificate.
+
+#### Types of SSL Certificates
+
+There are different types of SSL certificates available today based on the validation level and the number of domains they secure.
+
+##### Types of SSL Certificates based on Validation Level
+
+**Domain Validated Certificates**
+
+The Domain Validated (DV) certificate requires the lowest level validation because the main purpose of DV certificates is to make the secure communication between the domain's web server and browser. 
+
+**Organization Validated Certificates**
+
+The Organization Validated (OV) certificate requires a medium level validation where CA checks the rights of an organization to use the domain and also the organization's information.
+
+**Extended Validated Certificates**
+
+The Extended Validated (EF) certificate requires a high-level validation where CA conducts rigorous background checks on the organization according to guidelines.
+
+##### Types of SSL Certificates based on the Number of Domains they Secure
+
+**Single Domain Certificate**
+
+The single domain certificate secures one fully qualified domain name.
+
+**Wildcard SSL Certificate**
+
+The wildcard SSL certificate secures an unlimited number of subdomains for a single domain.
+
+**Unified SSL Certificate /Multi-Domain SSL Certificate/SAN Certificate**
+
+The unified SSL certificate secures up to 100 domains using the same certificate with the help of the SAN extension. It is especially designed to secure Microsoft Exchange and Office Communication environments.
+
+##### SSL Certificate Formats
+
+An SSL Certificate is essentially an **X.509** certificate. X.509 is a standard that defines the structure of the certificate. It defines the data fields that should be included in the SSL certificate. X.509 uses a formal language called Abstract Syntax Notation One (ASN.1) to express the certificate's data structure.
+
+There are different formats of X.509 certificates such as PEM, DER, PKCS#7 and PKCS#12. PEM and PKCS#7 formats use Base64 ASCII encoding while DER and PKCS#12 use binary encoding. The certificate files have different extensions based on the format and encoding they use.
+
+The following figure illustrates the X.509 Certificate's encoding formats and file extensions.
+
+![SSL Certificate Format](https://www.tutorialsteacher.com/Content/images/https/ssl-certificate-format.png)
+
+Most CAs (Certificate Authority) provide certificates in PEM format in Base64 ASCII encoded files. The certificate file types can be `.pem, .crt, .cer, or .key`.
+
+### OpenSSL
+
+OpenSSL is a robust, commercial-grade, and full-featured toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols. It is also a general-purpose cryptography library.

@@ -1,0 +1,341 @@
+---
+layout: post
+category: frontend
+date:   2019-05-17
+path:  http
+title: Hypertext Transfer Protocol
+summary: 'The Hypertext Transfer Protocol (HTTP) is an application protocol for distributed, collaborative, hypermedia information systems'
+---
+
+### Overview
+
+HTTP is an application layer protocol designed within the framework of the Internet protocol suite, functions as a request–response protocol in the client–server computing model. Its definition presumes an underlying and reliable transport layer protocol,[6] and Transmission Control Protocol (TCP) is commonly used.
+
+HTTP resources are identified and located on the network by Uniform Resource Locators (URLs).
+
+HTTP/1.1 is a revision of the original HTTP (HTTP/1.0). In HTTP/1.0 a separate connection to the same server is made for every resource request. HTTP/1.1 can reuse a connection multiple times to download images, scripts, stylesheets, etc.
+
+### HTTP session
+
+An HTTP session is a sequence of network request-response transactions. An HTTP client initiates a request by establishing a Transmission Control Protocol (TCP) connection to a particular port on a server. An HTTP server listening on that port waits for a client's request message. Upon receiving the request, the server sends back a status line, such as "HTTP/1.1 200 OK", and a message of its own.
+
+#### Persistent connections
+
+In HTTP/0.9 and 1.0, the connection is closed after a single request/response pair. In HTTP/1.1 a keep-alive-mechanism was introduced, where a connection could be reused for more than one request. Such persistent connections reduce request latency perceptibly, because the client does not need to re-negotiate the TCP 3-Way-Handshake connection after the first request has been sent
+
+#### Session state
+
+HTTP is a stateless protocol. A stateless protocol does not require the HTTP server to retain information or status about each user for the duration of multiple requests.
+
+But some web applications may have to track the user's progress from page to page, for example when a web server is required to customize the content of a web page for a user. Solutions for these cases include:
+
+- the use of HTTP cookies.
+- server side sessions.
+- hidden variables (when the current page contains a form).
+- URL-rewriting using URI-encoded parameters, e.g., /index.php?session_id=some_unique_session_code.
+
+### HTTP authentication
+
+
+HTTP provides a general framework for access control and authentication, via an extensible set of challenge-response authentication schemes, which can be used by a server to challenge a client request and by a client to provide authentication information.
+
+#### Authentication
+
+Authentication is a way to identify yourself to the Web server. You need to show proof that you have the right to access the requested resources. Usually, this is done by using a combination of username and password.
+
+##### Challenge/Response Authentication Framework
+
+It means that when someone sends a request, instead of responding to it immediately, the server sends authentication challenge. It challenges the user to provide the proof of identity by entering the secret information.
+
+##### Authentication Related request/response headers
+
+The server issues the challenge by utilizing the WWW-Authenticate response header. It contains the information about the authentication protocol and the security realm.
+
+After the client inputs the credentials, the request is sent again. This time with the Authorization header containing the authentication algorithm and the username/password combination. If the credentials are correct, the server returns the response and additional info in an optional Authentication-Info response header.
+
+##### Security Realms
+
+Security realms provide the way to associate different access right to different resource groups on the server. These are called protection spaces.
+
+The server can have multiple realms. For example, one would be for website statistics information that only website admins can access. Another would be for website images that other users can access and upload images to.
+
+
+
+
+#### Basic access authentication
+
+Basic authentication packs the username and password into one string and separates them using the colon (:). After that, it encodes them using the Base64 encoding.
+
+1. The user requests access to some image on the server.
+
+```
+GET /gallery/personal/images/image1.jpg HTTP/1.1
+Host: www.somedomain.com
+```
+
+2. The server sends the authentication challenge to the user.
+
+```
+HTTP/1.1 401 Access Denied
+WWW-Authenticate: Basic realm="gallery"
+```
+
+3. The user identifies itself via form input.
+
+```
+GET /gallery/personal/images/image1.jpg HTTP/1.1
+Authorization: Basic Zm9vOmJhcg==
+```
+
+4. The server checks the credentials and sends the 200 OK status code and the image data.
+
+```
+HTTP/1.1 200 OK
+Content-type: image/jpeg
+...<image data>
+```
+
+There is also no protection against proxies or any other type of attack that changes the request body and leaves the request headers intact.
+
+So, as you can see, Basic authentication is less than perfect authentication mechanism. To make it more secure and usable, Basic authentication can be implemented by using HTTPS over SSL
+
+#### Digest access authentication
+
+Digest authentication is a more secure and reliable alternative to simple but insecure Basic authentication.
+
+Digest authentication uses MD5 cryptographic hashing combined with the usage of nonces.
+
+1. The client sends an unauthenticated request.
+
+```
+GET /dir/index.html HTTP/1.0
+Host: localhost
+```
+
+2. The server challenges the client to authenticate using the Digest authentication and sends the required information to the client.
+
+```
+HTTP/1.0 401 Unauthorized
+WWW-Authenticate: Digest realm="shire@middleearth.com",
+                        qop="auth,auth-int",
+                        nonce="cmFuZG9tbHlnZW5lcmF0ZWRub25jZQ",
+                        opaque="c29tZXJhbmRvbW9wYXF1ZXN0cmluZw"
+Content-Type: text/html
+Content-Length: 153
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Error</title>
+  </head>
+  <body>
+    <h1>401 Unauthorized.</h1>
+  </body>
+</html>
+```
+
+3. The client calculates the response value and sends it together with username, realm, URI, nonce, opaque, qop, nc and cnonce. A lot of stuff.
+
+```
+GET /dir/index.html HTTP/1.0
+Host: localhost
+Authorization: Digest username="Gandalf",
+                     realm="shire@middleearth.com",
+                     nonce="cmFuZG9tbHlnZW5lcmF0ZWRub25jZQ",
+                     uri="/dir/index.html",
+                     qop=auth,
+                     nc=00000001,
+                     cnonce="0a4f113b",
+                     response="5a1c3bb349cf6986abf985257d968d86",
+                     opaque="c29tZXJhbmRvbW9wYXF1ZXN0cmluZw"
+
+```
+
+4. The server computes the hash on its own and compares the two. If they match it serves the client with the requested data.
+
+```
+HTTP/1.0 200 OK
+Content-Type: text/html
+Content-Length: 2345
+
+... <content data>
+```
+
+nonce and opaque, the server defined strings that client returns upon recieving them.
+
+qop, one or more of the predefined values (“auth” | “auth-int” | token) which affect the computation of the digest.
+
+cnonce, client nonce, must be generated if qop is set.
+
+nc, nonce count, must be sent if qop is set. If the same nc value appears twice, then the request is a replay.
+
+The response attribute is calculated in the following way:
+
+```
+HA1 = MD5("Gandalf:shire@middleearth.com:Lord Of The Rings")
+       = 681028410e804a5b60f69e894701d4b4
+ 
+HA2 = MD5("GET:/dir/index.html")
+       = 39aff3a2bab6126f332b942af96d3366
+ 
+Response = MD5( "681028410e804a5b60f69e894701d4b4:
+                 cmFuZG9tbHlnZW5lcmF0ZWRub25jZQ:
+                 00000001:0a4f113b:auth:
+                 39aff3a2bab6126f332b942af96d3366" )
+         = 5a1c3bb349cf6986abf985257d968d86
+
+```
+
+**Link:** (Authentication Mechanisms)[https://code-maze.com/http-series-part-4/]
+
+### Message format
+
+#### Request message
+
+The request message consists of the following:
+
+1. a request line e.g. GET /images/logo.png HTTP/1.1
+2. request header fields
+3. an empty line
+4. an optional message body
+
+The request line and other header fields must each end with <CR><LF>. The empty line must consist of only <CR><LF> and no other whitespace. And all header fields except Host are optional.
+
+##### Request methods
+
+The HTTP/1.0 specification defined the GET, HEAD and POST methods and the HTTP/1.1 specification added five new methods: OPTIONS, PUT, DELETE, TRACE and CONNECT. Any client can use any method and the server can be configured to support any combination of methods.
+
+    Method names are case sensitive
+
+**GET**
+
+The GET method requests a representation of the specified resource. Requests using GET should only retrieve data and should have no other effect.
+
+**HEAD**
+
+The HEAD method asks for a response identical to that of a GET request, but without the response body. This is useful for **retrieving meta-information** written in response headers, without having to transport the entire content.
+
+**POST**
+
+The POST method requests that the server accept the entity enclosed in the request as a new subordinate of the web resource identified by the URI.
+
+**PUT**
+
+The PUT method requests that the enclosed entity be stored under the supplied URI. If the URI refers to an already existing resource, it is modified; if the URI does not point to an existing resource, then the server can create the resource with that URI.
+
+**DELETE**
+
+The DELETE method deletes the specified resource.
+
+**TRACE**
+
+The TRACE method echoes the received request so that a client can see what (if any) changes or additions have been made by intermediate servers.
+
+**OPTIONS**
+
+The OPTIONS method returns the HTTP methods that the server supports for the specified URL. This can be used to check the functionality of a web server by requesting '*' instead of a specific resource.
+
+**CONNECT**
+
+The CONNECT method converts the request connection to a transparent TCP/IP tunnel, usually to facilitate SSL-encrypted communication (HTTPS) through an unencrypted HTTP proxy.
+
+**PATCH**
+
+The PATCH method applies partial modifications to a resource.
+
+All general-purpose HTTP servers are required to implement at least the GET and HEAD methods, and all other methods are considered optional by the specification.
+
+##### Safe methods
+
+Some of the methods (for example, GET, HEAD, OPTIONS and TRACE) are, by convention, defined as safe, which means they are intended only for information retrieval and should not change the state of the server.
+
+By contrast, methods such as POST, PUT, DELETE and PATCH are intended for actions that may cause side effects either on the server, or external side effects such as financial transactions or transmission of email.
+
+##### Idempotent methods and web applications
+
+Methods PUT and DELETE are defined to be idempotent, meaning that multiple identical requests should have the same effect as a single request.
+Methods GET, HEAD, OPTIONS and TRACE, being prescribed as safe, should also be idempotent.
+
+In contrast, the POST method is not necessarily idempotent, and therefore sending an identical POST request multiple times may further affect state or cause further side effects
+
+##### Reponse message
+
+The response message consists of the following:
+
+1. a status line which includes the status code and reason message e.g., HTTP/1.1 200 OK
+2. response header fields (e.g., Content-Type: text/html)
+3. an empty line
+4. an optional message body
+
+The status line and other header fields must all end with <CR><LF>. The empty line must consist of only <CR><LF> and no other whitespace. This strict requirement for <CR><LF> is relaxed somewhat within message bodies for consistent use of other system linebreaks such as <CR> or <LF> alone.
+
+##### Status codes
+
+If the status code indicated a problem, the user agent might display the reason phrase to the user to provide further information about the nature of the problem.
+
+HTTP status code is primarily divided into five groups for better explanation of request and responses between client and server as named:
+
+1. Informational 1XX
+2. Successful 2XX
+3. Redirection 3XX
+4. Client Error 4XX
+5. Server Error 5XX
+
+### Encrypted connections
+
+The most popular way of establishing an encrypted HTTP connection is HTTPS. Two other methods for establishing an encrypted HTTP connection also exist: Secure Hypertext Transfer Protocol, and using the HTTP/1.1 Upgrade header to specify an upgrade to TLS.
+
+### Example session
+#### Client request
+```
+GET / HTTP/1.1
+Host: www.example.com
+```
+
+#### Server response 
+```
+HTTP/1.1 200 OK
+Date: Mon, 23 May 2005 22:38:34 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 138
+Last-Modified: Wed, 08 Jan 2003 23:11:55 GMT
+Server: Apache/1.3.3.7 (Unix) (Red-Hat/Linux)
+ETag: "3f80f-1b6-3e1cb03b"
+Accept-Ranges: bytes
+Connection: close
+
+<html>
+  <head>
+    <title>An Example Page</title>
+  </head>
+  <body>
+    <p>Hello World, this is a very simple HTML document.</p>
+  </body>
+</html>
+```
+
+### Security
+
+#### HTTPS
+
+HTTPS stands for Hypertext Transfer Protocol Secure which means that client and server communicate through HTTP but over the secure SSL/TLS connection.
+
+HTTPS solves the MITM attacks problem by encrypting the communication.
+
+##### SSL & TLS
+
+Terms SSL (Secure Socket Layer) and TLS (Transport Layer Security) are used interchangeably, but in fact, today, when someone mentions SSL they probably mean TLS.
+
+##### TLS handshake
+
+There is an initial handshake between the client and the server, in which they exchange keys and certificates. After that handshake, encrypted communication is ready to start.
+
+![https handshake](https://code-maze.com/wp-content/uploads/2017/07/TLS-handshake.png)
+
+##### Certificate and Certification Authorities (CAs)
+
+Certificate and Certification Authorities (CAs)
+Certificates are the crucial part of the secure communication over HTTPS. They are issued by one of the trusted Certification Authorities.
+
+A digital certificate allows the users of the website to communicate in the secure fashion when using a website.
