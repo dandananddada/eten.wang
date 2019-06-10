@@ -1,8 +1,92 @@
 ---
 layout: post
 category: frontend
-date:   2019-05-17
+date:   2019-05-20
 path: tcp 
 title: Transmission Control Protocol
-summary: 'The Hypertext Transfer Protocol (HTTP) is an application protocol for distributed, collaborative, hypermedia information systems'
+summary: 'The transmission control protocol (TCP) is the internet standard ensuring the successful exchange of data packets between devices over a network. '
 ---
+
+### What is TCP
+
+The transmission control protocol (TCP) is the internet standard ensuring the successful exchange of data packets between devices over a network. TCP is the underlying communication protocol for a wide variety of applications, including web servers and websites, email applications, FTP and peer-to-peer apps.
+
+TCP operates with the internet protocol (IP) to specify how data is exchanged online. IP is responsible for sending each packet to its destination, while TCP guarantees that bytes are transmitted in the order in which they were sent with no errors or omissions. Together, the two protocols are referred to as TCP/IP.
+
+### How it works
+
+#### TCP/IP is a two-layered program
+
+**The higher layer (TCP)** disassembles message content into small "data packets" that are then transmitted over the Internet to be re-assembled by the receiving computer's TCP back into the message's original form. **The lower layer (IP)** plays the role of "address manager" and gets each data packet to the correct destination. IP addresses are checked by every computer in a network to ensure messages are forwarded as needed.
+
+#### TCP/IP runs on the client-server communication model
+
+ The user of a first computer (the client) makes a service request, such as forwarding a Web page, to a second network computer (the server). 
+
+ TCP/IP also relies on point-to-point communication, meaning that communications move from one host computer to another within a pre-defined network boundary.
+
+ TCP/IP is said to be stateless because each request is new and unrelated to all previous requests.
+
+### The three-way handshake
+
+TCP's three way handshaking technique is often referred to as "SYN-SYN-ACK", because **there are three messages transmitted by TCP to negotiate and start a TCP session between two computers**. 
+
+The TCP handshaking mechanism is designed so that two computers attempting to communicate can negotiate the parameters of the network **TCP socket** connection before transmitting data such as SSH and HTTP web browser requests. And also designed so that both ends can initiate and negotiate separate TCP socket connections at the same time.
+
+    TCP Sockets (or virtual ports) are used in TCP (and UDP) communication to identify unique end-to-end connections.
+    They are called 'virtual ports' because a single physical connector can serve multiple connections. The port number and IP address together uniquely identify an endpoint. Together, two endpoints are considered a 'socket'.
+
+<br>
+
+#### TCP 3-Way Handshake Diagram
+
+**Diagram**
+
+![TCP 3-way handshake diagram](https://www.inetdaemon.com/img/internet/3-way-handshake.gif)
+
+**Event**
+
+- Host A sends a TCP **SYN**chronize packet to Host B
+- Host B receives A's **SYN**
+- Host B sends a **SYN**chronize-**ACK**nowledgement
+- Host A receives B's **SYN-ACK**
+- Host A sends **ACK**nowledge
+- Host B receives **ACK**. 
+- TCP socket connection is **ESTABLISHED**.
+
+**TCP knows whether the network TCP socket connection is opening, synchronizing, established by using the SYNchronize and ACKnowledge messages** when establishing a network TCP socket connection.
+
+### TCP/IP and Higher-Level Applications
+
+Many higher-level apps constitute a higher layer of protocol language are often packaged along with TCP/IP. e.g. `HTTP、FTP、Telnet、SMTP`.
+
+### TCP DDoS vulnerabilities and methods of mitigation
+
+TCP is vulnerable to several types of DDoS attacks, including: `SYN flood、STOMP DDoS attack、TCP fragmentation (Teardrop)`.
+
+#### SYN flood
+
+SYN floods occur during the initial stage of a three-way handshake by sending TCP connection requests (SYN packets) to every port on a target machine faster than it can process the requests.
+
+![SYN flood](https://www.imperva.com/learn/wp-content/uploads/sites/13/2019/01/syn-flood.jpg)
+
+There are several ways to mitigate SYN floods, including:
+
+1. **Micro-blocks** – The server allocates a micro-record in its memory for each SYN request instead of a complete connection object.
+2. **SYN cookies** - The server uses cryptographic hashing to verify a TCP request before allocating memory.
+3. **RST cookies** – The server intentionally sends an incorrect response after the initial SYN request. If the client is legitimate, the server receives an RST packet, telling the server something is wrong.
+4. **TCP stack tweaking** – You can decrease the timeout for releasing memory allocated to a connection.
+
+#### STOMP DDoS attack
+
+STOMP is a text-based protocol that allows applications to communicate with message brokers using TCP. In a STOMP DDoS attack, perpetrators use a botnet to open large numbers of TCP handshakes with applications. The attackers then send junk data disguised as STOMP TCP requests, saturating the network. If the server is prepared to parse STOMP requests, the attack can also exhaust server resources.
+
+#### TCP fragmentation
+
+A teardrop attack is a type of IP fragmentation attack that targets the TCP/IP reassembly mechanism, occurring after a three-way handshake has been completed and data is being transmitted. It involves an attacker deliberately sending data packets with defective segment offset fields, preventing the receiver from correctly putting together the fragmented data. Data packets overlap and quickly overwhelm the victim’s servers.
+
+Preventing TCP fragmentation attacks requires the inspection of incoming packets using routers, secure proxies or a cloud-based DDoS protection service. Packets with incorrect fragmentation are then detected and dropped before they reach your serve.
+
+### Refers
+
+[TCP 3-Way Handshake (SYN,SYN-ACK,ACK)](https://www.inetdaemon.com/tutorials/internet/tcp/3-way_handshake.shtml)
