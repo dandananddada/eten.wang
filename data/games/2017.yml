@@ -2,17 +2,17 @@ data:
   year: 2017
   games:
   - name: '晶体管'
-    score: 9
+    score: 8.8
     platform: 'steam'
     day: '01-07'
   - name: '猎天使魔女2'
     score: 9.6
     platform: 'Wii U'
   - name: '猎天使魔女'
-    score: 9.2
+    score: 9.4
     platform: 'Wii U'
   - name: 'Guild of Dungeoneering'
-    score: 8.8
+    score: 8.9
     platform: 'App Store'
   - name: 'Never Alone'
     score: 7
@@ -27,20 +27,20 @@ data:
     score: 9.8
     platform: 'PS4'
   - name: '妖怪手表破坏者：赤猫团'
-    score: 9.5
+    score: 9.2
     platform: '3DS'
   - name: '香缇：半精灵英雄'
     score: 8.8
     platform: 'switch'
   - name: 'Splatoon 2'
-    score: 9.6
+    score: 9.5
     platform: 'switch'
     day: '01-28'
   - name: 'To the moon'
     score: 10
     platform: 'steam'
   - name: '荣耀战魂'
-    score: 8.6
+    score: 8.8
     platform: 'PS4'
   - name: 'What Remains of Edith Finch'
     score: 10
@@ -70,5 +70,5 @@ data:
     score: 8.6
     platform: 'Uplay'
   - name: '刺客信条：起源'
-    score: 9.5
+    score: 9.6
     platform: 'Uplay'

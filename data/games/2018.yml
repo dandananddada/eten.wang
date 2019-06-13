@@ -11,13 +11,13 @@ data:
     score: 9.8
     platform: 'PS4'
   - name: '怪物猎人：世界'
-    score: 8.8
+    score: 8.9
     platform: 'PS4'
   - name: 'Far Cry 5'
     score: 8.8
     platform: 'Uplay'
   - name: '星之卡比：新星同盟'
-    score: 8.6
+    score: 8.5
     platform: 'switch'
   - name: '巨像之咆哮'
     score: 8.8
@@ -26,7 +26,7 @@ data:
     score: 8.4
     platform: 'steam'
   - name: '战神'
-    score: 9.5
+    score: 9.6
     platform: 'PS4'
   - name: 'Just Dance 2018'
     score: 8.6
@@ -38,14 +38,14 @@ data:
     score: 9
     platform: 'Uplay'
   - name: '荒野大镖客：救赎2'
-    score: 10
+    score: 9.9
     platform: 'PS4'
   - name: 'Florence'
-    score: 9.4
+    score: 9.5
     platform: 'App Store'
   - name: 'GRIS'
     score: 9
     platform: 'steam'
   - name: '任天堂全明星大乱斗：特别版'
-    score: 9.6
+    score: 9.7
     platform: 'switch'

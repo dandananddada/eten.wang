@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .container {
+        background-color: red;
+        overflow: hidden; /* creates a block formatting context */
+    }
+
+    p {
+        background-color: lightgreen;
+        margin: 10px 0;
+    }
+    .bfc {
+        overflow: hidden;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Sibling 1</p>
+        <p>Sibling 2</p>
+        <div class="bfc">
+            <p>Sibling 2</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -30,7 +30,7 @@ data:
     platform: 'App Store'
     day: '06-23'
   - name: '暴雨'
-    score: 10
+    score: 9.8
     platform: 'PS4'
     day: '07-03'
   - name: 'INSIDE'
@@ -38,7 +38,7 @@ data:
     platform: 'steam'
     day: '10-02'
   - name: 'The Bug Butcher'
-    score: 8.6
+    score: 8.8
     platform: 'App Store'
     day: '10-24'
   - name: 'ペルソナ5'
@@ -46,7 +46,7 @@ data:
     platform: 'PS4'
     day: '10-30'
   - name: '精灵宝可梦：月亮'
-    score: 9.6
+    score: 9.5
     platform: '3DS'
     day: '11-25'
   - name: 'Beholder'
@@ -54,6 +54,6 @@ data:
     platform: 'steam'
     day: '12-24'
   - name: 'The Wolf Among Us'
-    score: 9.4
+    score: 9.5
     platform: 'steam'
     day: '12-31'

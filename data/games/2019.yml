@@ -11,14 +11,14 @@ data:
     platform: 'PS4'
   - name: '只狼'
     image: 'https://p0.meituan.net/travelcube/c38cab160839d961ad6b3ec4bf1af288143662.jpg'
-    score: 9.5
+    score: 9.6
     platform: 'steam'
   - name: '巫师之昆特牌：王权的陨落'
     score: 9.2
     platform: 'steam'
     day: '05-07'
   - name: '武士零'
-    score: 8.8
+    score: 8.9
     platform: 'steam'
     day: '05-12'
   - name: '瘟疫传说：无罪'

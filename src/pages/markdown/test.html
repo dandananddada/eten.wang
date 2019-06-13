@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .container {
+            width: 300px;
+            height: 500px;
+            display: flex;
+        }
+        .item {
+            height: 120px;
+            flex-basis: 106px;
+            flex-grow: 1;
+        }
+        .item.first {
+            background-color: red;
+            flex-shrink: 2;
+        }
+        .item.second {
+            background: blue;
+            flex-shrink: 3;
+        }
+        .item.third {
+            background-color:green;
+            flex-shrink: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item first"></div><!-- width: 100px -->
+        <div class="item second"></div><!-- width: 97px -->
+        <div class="item third"></div><!-- width: 103px -->
+    </div>
+</body>
+</html>
