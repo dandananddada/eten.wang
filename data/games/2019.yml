@@ -14,7 +14,7 @@ data:
     score: 9.6
     platform: 'steam'
   - name: '巫师之昆特牌：王权的陨落'
-    score: 9.2
+    score: 9.1
     platform: 'steam'
     day: '05-07'
   - name: '武士零'
@@ -24,8 +24,16 @@ data:
   - name: '瘟疫传说：无罪'
     score: 8.8
     platform: 'steam'
-    day: '5-21'
+    day: '05-21'
   - name: '失落的龙约'
-    score: 9
+    score: 9.1
     platform: 'app store'
-    day: '5-30'
+    day: '05-30'
+  - name: '古剑奇谭三'
+    score: 8.8
+    platform: 'steam'
+    day: '06-15'
+  - name: '节奏海拉鲁'
+    score: 9
+    platform: 'switch'
+    day: '06-20'

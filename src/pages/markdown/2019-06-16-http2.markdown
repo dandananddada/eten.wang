@@ -1,0 +1,19 @@
+---
+layout: post
+category: frontend
+date:   2019-06-16
+path: http2
+title: HTTP/2
+summary: ''
+---
+
+In 2015, Internet Engineering Task Force (IETF) release HTTP/2, the second major version of the most useful internet protocol, HTTP. It was derived from the earlier experimental SPDY protocol.
+
+### Request multiplexing
+
+https://developers.google.com/web/fundamentals/performance/http2/
+
+https://kinsta.com/learn/what-is-http2/
+
+https://medium.com/@factoryhr/http-2-the-difference-between-http-1-1-benefits-and-how-to-use-it-38094fa0e95b
+
