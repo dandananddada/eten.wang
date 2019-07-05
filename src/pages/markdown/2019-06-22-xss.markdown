@@ -1,0 +1,266 @@
+---
+layout: post
+category: frontend
+date:   2019-06-22
+path: xss
+title: XSS
+summary: 'Cross-site scripting (XSS) is a code injection attack that allows an attacker to execute malicious JavaScript in another user's browser.'
+---
+
+### Overview
+#### What is XSS
+
+Cross-site scripting (XSS) is a code injection attack that allows an attacker to execute malicious JavaScript in another user's browser.
+
+The attacker exploits a vulnerability in a website, in order to get the website to deliver the malicious JavaScript for the victim to visit.
+
+#### How the malicious JavaScript is injected
+
+In the example below, a simple server-side script is used to display the latest comment on a website:
+
+```javascript
+print "<html>"
+print "Latest comment:"
+print database.latestComment
+print "</html>"
+```
+
+Since the user input is included directly, an attacker could submit this comment: "<script>...</script>". Any user visiting the page would now receive the following response:
+
+```javascript
+<html>
+Latest comment:
+<script>...</script>
+</html>
+```
+When the user's browser loads the page, it will execute whatever JavaScript code is contained inside the `<script>` tags. The attacker has now succeeded with his attack.
+
+#### What is malicious JavaScript?
+
+JavaScript runs in a very restricted environment that has extremely limited access to the user's files and operating system. It would be very unlikely to cause any damage to your computer.
+
+However, the possibility of JavaScript being malicious becomes more clear when you consider the following facts:
+- JavaScript has access to some of the user's sensitive information, such as cookies.
+- JavaScript can send HTTP requests with arbitrary content to arbitrary destinations by using XMLHttpRequest and other mechanisms.
+- JavaScript can make arbitrary modifications to the HTML of the current page by using DOM manipulation methods.
+
+#### The consequences of malicious JavaScript
+
+**Cookie theft**
+
+  The attacker can access the victim's cookies associated with the website using `document.cookie`, send them to his own server, and use them to extract sensitive information like session IDs.
+
+**Keylogging**
+
+  The attacker can register a keyboard event listener using `addEventListener` and then send all of the user's keystrokes to his own server, potentially recording sensitive information such as passwords and credit card numbers.
+
+**Phishing**
+
+  The attacker can insert a fake login form into the page using DOM manipulation, set the form's action attribute to target his own server, and then trick the user into submitting sensitive information.
+
+### XSS Attacks
+
+#### How attack works
+
+![](https://excess-xss.com/persistent-xss.png)
+
+#### Types of XSS
+
+- Persistent XSS, where the malicious string originates from the website's database.
+- Reflected XSS, where the malicious string originates from the victim's request.
+- DOM-based XSS, where the vulnerability is in the client-side code rather than the server-side code.
+
+#### Reflected XSS
+In a reflected XSS attack, the malicious string is part of the victim's request to the website.
+
+![](https://excess-xss.com/reflected-xss.png)
+
+**How can reflected XSS succeed?**
+
+At first, reflected XSS might seem harmless because it requires the victim himself to actually send a request containing a malicious string. As it turns out, there are at least two common ways of causing a victim to launch a reflected XSS attack against himself:
+
+1. If the user targets a specific individual, the attacker can send the malicious URL to the victim (using e-mail or instant messaging, for example) and trick him into visiting it.
+2. If the user targets a large group of people, the attacker can publish a link to the malicious URL (on his own website or on a social network, for example) and wait for visitors to click it.
+
+#### DOM-based XSS
+
+![](https://excess-xss.com/dom-based-xss.png)
+
+**What makes DOM-based XSS different**
+
+- In traditional XSS, the malicious JavaScript is executed when the page is loaded, as part of the HTML sent by the server.
+- In DOM-based XSS, the malicious JavaScript is executed at some point after the page has loaded, as a result of the page's legitimate JavaScript treating user input in an unsafe way.
+
+### Preventing XSS
+
+Recall that an XSS attack is a type of code injection, In order to prevent this type of code injection, secure input handling is needed. For a web developer, there are two fundamentally different ways of performing secure input handling.
+- **Encoding**, which escapes the user input so that the browser interprets it only as data, not as code.
+- **Validation**, which filters the user input so that the browser interprets it as code without malicious commands.
+
+#### Input handling contexts
+
+||||
+|:--:|:--:|
+|Application code| `<input value="userInput">`|
+|Malicious string| `"><script>...</script><input value="`|
+|Resulting code| `<input value=""><script>...</script><input value="">`|
+
+If the same input were inserted into another context, the closing delimiter would be different and injection would become possible. For this reason, secure input handling always needs to be tailored to the context where the user input will be inserted.
+
+#### Inbound/outbound input handling
+
+There is no easy way of determining when user input arrives which context it will eventually be inserted into, Relying on inbound input handling to prevent XSS is thus a very brittle solution that will be prone to errors.
+Instead, outbound input handling should be your primary line of defense against XSS, because it can take into account the specific context that user input will be inserted into.
+
+In most modern web applications, user input is handled by both server-side code and client-side code. In order to protect against all types of XSS, secure input handling must be performed in both the server-side code and the client-side code.
+
+#### Encoding
+
+Encoding is the act of escaping user input so that the browser interprets it only as data, not as code.
+
+**Limitations of encoding**
+
+Even with encoding, it will be possible to input malicious strings into some contexts.
+
+```javascript
+document.querySelector('a').href = userInput
+```
+
+This in itself does not prevent the attacker from inserting a URL beginning with "javascript:". When the link is clicked, whatever JavaScript is embedded inside the URL will be executed.
+
+
+#### Validation
+
+Validation is the act of filtering user input so that all malicious parts of it are removed, without necessarily removing all code in it. One of the most recognizable types of validation in web development is **allowing** some HTML elements (such as `<em>` and `<strong>`) but **disallowing** others (such as `<script>`).
+
+There are two main characteristics of validation that differ between implementations:
+- Classification strategy
+- Validation outcome
+
+##### Classification strategy
+
+**Blacklisting**
+
+If a string matches this pattern, it is then marked as invalid.
+
+However, blacklisting has two major drawbacks:
+- **Complexity**
+
+  Accurately describing the set of all possible malicious strings is usually a very complex task. 
+
+- **Staleness**
+
+  Even if a perfect blacklist were developed, it would fail if a new feature allowing malicious use were added to the browser. 
+
+**Whitelisting**
+
+Whitelisting is essentially the opposite of blacklisting: instead of defining a forbidden pattern, a whitelist approach defines an allowed pattern and marks input as invalid if it does not match this pattern.
+
+Compared to blacklisting, there are two major benefits of whitelisting:
+
+- **Simplicity**
+
+  Accurately describing a set of safe strings is generally much easier than identifying the set of all malicious strings.
+
+- **Longevity**
+
+  Unlike a blacklist, a whitelist will generally not become obsolete when a new feature is added to the browser.
+
+##### Validation outcome
+
+When input has been marked as invalid, one of two actions can be taken:
+
+- Rejection
+The input is simply rejected
+
+- Sanitisation
+All invalid parts of the input are removed, and the remaining input is used normally by the website.
+
+### Which prevention technique to use
+
+**Encoding** should be your first line of defense against XSS
+
+As a second line of defense, you should use **inbound validation** to sanitize or reject data
+
+As a third line of defense, you should also make use of **Content Security Policy** (CSP)
+
+### Content Security Policy (CSP)
+
+CSP is used to constrain the browser viewing your page so that it can only use resources downloaded from trusted sources. 
+
+CSP can be used to enforce the following rules:
+
+- **No untrusted sources**
+
+  External resources can only be loaded from a set of clearly defined trusted sources.
+
+- **No inline resources**
+
+  Inline JavaScript and CSS will not be evaluated.
+
+- **No eval**
+
+  The JavaScript eval function cannot be used.
+
+#### How to enable CSP
+
+By default, browsers do not enforce CSP. To enable CSP on your website, pages must be served with an additional HTTP header: `Content‑Security‑Policy`.
+
+#### An example policy
+
+```html
+Content‑Security‑Policy:
+    script‑src 'self' scripts.example.com;
+    media‑src 'none';
+    img‑src *;
+    default‑src 'self' http://*.example.com
+```
+
+- Scripts can be downloaded only from the host serving the page and from `scripts.example.com`.
+- Audio and video files cannot be downloaded from anywhere.
+- Image files can be downloaded from any host.
+- All other resources can be downloaded only from the host serving the page and from any subdomain of `example.com`.
+
+#### Status of CSP
+
+As of June 2013, Content Security Policy is a W3C candidate recommendation. It is being implemented by browser vendors, but parts of it are still browser-specific.
+
+### Summary
+
+#### Overview of XSS
+
+- XSS is a code injection attack made possible through insecure handling of user input.
+- A successful XSS attack allows an attacker to execute malicious JavaScript in a victim's browser.
+- A successful XSS attack compromises the security of both the website and its users.
+
+#### XSS Attacks
+
+- There are three major types of XSS attacks:
+  - **Persistent XSS**, where the malicious input originates from the website's database.
+  - **Reflected XSS**, where the malicious input originates from the victim's request.
+  - **DOM-based XSS**, where the vulnerability is in the client-side code rather than the server-side code.
+- All of these attacks are performed in different ways but have the same effect if they succeed.
+
+#### Preventing XSS
+
+- The most important way of preventing XSS attacks is to perform secure input handling.
+  - Most of the time, encoding should be performed whenever user input is included in a page.
+  - In some cases, encoding has to be replaced by or complemented with validation.
+  - Secure input handling has to take into account which context of a page the user input is inserted into.
+  - To prevent all types of XSS attacks, secure input handling has to be performed in both client-side and server-side code.
+- Content Security Policy provides an additional layer of defense for when secure input handling fails.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

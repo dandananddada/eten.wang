@@ -4,7 +4,7 @@ category: frontend
 date:   2019-06-20
 path: proxy-and-reflect
 title: Proxy & Reflect
-summary: ''
+summary: 'A proxy wraps another object and intercepts operations, handling them on its own, or transparently allowing the object to handle them.'
 ---
 ### Proxy
 

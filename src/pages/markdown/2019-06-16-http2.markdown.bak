@@ -1,10 +1,10 @@
 ---
-layout: post
-category: frontend
-date:   2019-06-16
-path: http2
-title: HTTP/2
-summary: ''
+# layout: post
+# category: frontend
+# date:   2019-06-16
+# path: http2
+# title: HTTP/2
+# summary: ''
 ---
 
 In 2015, Internet Engineering Task Force (IETF) release HTTP/2, the second major version of the most useful internet protocol, HTTP. It was derived from the earlier experimental SPDY protocol.
