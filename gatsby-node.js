@@ -66,7 +66,7 @@ exports.createPages = async ({ actions, graphql }) => {
   const BlogContentsTamplate = path.resolve(`src/templates/blog/contents.js`)
   const BlogPageTemplate = path.resolve(`src/templates/blog/page.js`)
   const posts = markdownResult.data.allMarkdownRemark.edges
-  const postsPerPage = 7
+  const postsPerPage = 12
   const numPages = Math.ceil(posts.length / postsPerPage)
   Array.from({ length: numPages }).forEach((_, i) => {
     const page = i+1

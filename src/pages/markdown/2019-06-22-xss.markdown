@@ -1,10 +1,10 @@
 ---
 layout: post
 category: frontend
-date:   2019-06-22
+date: 2019-06-22
 path: xss
 title: XSS
-summary: 'Cross-site scripting (XSS) is a code injection attack that allows an attacker to execute malicious JavaScript in another user's browser.'
+summary: "cross site scripting is a code injection attack that allows an attacker to execute malicious JavaScript in another user's browser."
 ---
 
 ### Overview
