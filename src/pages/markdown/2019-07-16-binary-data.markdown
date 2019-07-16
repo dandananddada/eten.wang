@@ -1,7 +1,7 @@
 ---
 layout: post
 category: frontend
-date:   2019-07-08
+date:   2019-07-16
 path: binary-data 
 title: Binary Data 
 summary: 'Binary data in JavaScript is implemented in a non-standard way, compared to other languages. But when we sort things out, everything becomes fairly simple.'
