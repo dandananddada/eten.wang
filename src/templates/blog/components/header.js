@@ -4,7 +4,7 @@ export default function BlogHeader () {
   return (
     <header className="site-header">
       <div className="wrapper">
-        <a className="site-title" href="/">Eten Wang</a>
+        <a className="site-title" href="//blog.eten.wang">Eten Wang</a>
         <nav className="site-nav">
           <a href="#" className="menu-icon">
           </a>

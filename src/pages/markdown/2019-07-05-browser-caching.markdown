@@ -4,7 +4,7 @@ category: frontend
 date:   2019-07-05
 path: web-caching
 title: Web Caching
-summary: 'Caching is the term for storing reusable responses in order to make subsequent requests faster. '
+summary: 'Caching is the term for storing reusable responses in order to make subsequent requests faster.'
 ---
 
 ### What is Caching
