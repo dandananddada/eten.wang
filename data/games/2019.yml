@@ -34,3 +34,22 @@ data:
     score: 9
     platform: 'switch'
     day: '06-20'
+  - name: '鬼泣5'
+    score: 8.5
+    platform: 'steam'
+    day: '08-23'
+  - name: '万智牌：竞技场'
+    score: 9.5
+    platform: 'PC'
+  - name: '异界锁链'
+    score: 8.6
+    platform: 'switch'
+    day: '09-09'
+  - name: 'Return of the Obra Dinn'
+    score: 9.6
+    platform: 'steam'
+    day: '09-11'
+  - name: '塞尔达传说：织梦岛'
+    score: 9.6
+    platform: 'switch'
+    day: '09-30'
