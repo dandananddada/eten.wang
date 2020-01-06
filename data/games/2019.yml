@@ -46,10 +46,28 @@ data:
     platform: 'switch'
     day: '09-09'
   - name: 'Return of the Obra Dinn'
-    score: 9.6
+    score: 9.4
     platform: 'steam'
     day: '09-11'
   - name: '塞尔达传说：织梦岛'
     score: 9.6
     platform: 'switch'
     day: '09-30'
+  - name: '妖怪ウォッチ 4'
+    score: 9.4
+    platform: 'switch'
+  - name: '宝可梦 剑／盾'
+    score: 8.4
+    platform: 'switch'
+  - name: '死亡搁浅'
+    score: 9.8
+    platform: 'PS4'
+    day: '12-08'
+  - name: 'Song of Bloom'
+    score: 10
+    platform: 'App Store'
+    day: '12-22'
+  - name: 'Persona Q2'
+    score: 9.4
+    platform: '3DS'
+    day: '2020-01-05'

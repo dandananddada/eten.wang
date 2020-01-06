@@ -1,0 +1,146 @@
+---
+layout: post
+category: frontend
+date:   2019-10-10
+path: rpc 
+title: RPC
+summary: '.'
+---
+
+### Remote Procedure Call
+
+RPC is the earliest, simplest form of API interaction. It is about executing a block of code on another server, and when implemented in HTTP or AMQP it can become a Web API.
+
+RPC is just a bunch of functions, but in the context of an HTTP API, that entails putting the method in the URL and the arguments in the query string or body.
+
+RPC is merely a concept, but that concept has a lot of specifications, all of which have concrete implementations:
+
+- XML-RPC
+- JSON-RPC
+- Simple Object Access Protocol (SOAP)
+
+XML-RPC was problematic, because **ensuring data types of XML payloads is tough**. In XML, a lot of things are just strings, which JSON does improve, but has **trouble differentiating different data formats like integers and decimals**.
+
+A modern RPC implementation is gRPC. It uses a data format called ProtoBuff, which requires a schema as well as the data instance, much like the WSDL in SOAP. GRPC focuses on making single interactions as quick as possible, thanks to HTTP/2, and the fact that Protobuff packs down smaller than JSON, but JSON can also be used easily enough.
+
+### Representational State Transfer
+
+REST is all about a client-server relationship, where server-side data are made available through representations of data in simple formats. This format is usually JSON or XML but could be anything.
+
+REST provided all of the relevant information with the response, and the client was able to pick through the options to resolve the situation.
+
+That said, there are two large popular specifications which provide a whole lot of standardization for REST APIs
+
+- OData
+- JSON-API
+
+
+---
+
+REST is all about a client-server relationship, where server-side data are made available through representations of data in simple formats, often JSON and XML.
+Hypermedia is fundamental to REST, and is essentially just the concept of providing links to other resources.
+
+Beyond hypermedia there are a few other constraints, such as:
+
+- REST must be stateless: not persisting sessions between requests.
+- Responses should declare cacheablility: helps your API scale if clients respect the rules.
+- REST focuses on uniformity: if you’re using HTTP you should utilize HTTP features whenever possible, instead of inventing conventions.
+
+
+Before REST became popular, most APIs were built using an XML-RPC or SOAP
+
+
+### Example
+
+If you search “SOAP example” on Google, you’ll find an example from Google that demonstrates a method named getAdUnitsByStatement, which looks like this:
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope
+        xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <soapenv:Header>
+    <ns1:RequestHeader
+         soapenv:actor="http://schemas.xmlsoap.org/soap/actor/next"
+         soapenv:mustUnderstand="0"
+         xmlns:ns1="https://www.google.com/apis/ads/publisher/v201605">
+      <ns1:networkCode>123456</ns1:networkCode>
+      <ns1:applicationName>DfpApi-Java-2.1.0-dfp_test</ns1:applicationName>
+    </ns1:RequestHeader>
+  </soapenv:Header>
+  <soapenv:Body>
+    <getAdUnitsByStatement xmlns="https://www.google.com/apis/ads/publisher/v201605">
+      <filterStatement>
+        <query>WHERE parentId IS NULL LIMIT 500</query>
+      </filterStatement>
+    </getAdUnitsByStatement>
+  </soapenv:Body>
+</soapenv:Envelope>
+```
+
+This is a huge payload, all there simply to wrap this argument:
+
+`<query>WHERE parentId IS NULL LIMIT 500</query>`
+
+In JavaScript, that would look like this:
+
+```javascript
+/* Signature */
+function getAdUnitsByStatement(filterStatement) {
+  // ...
+};
+
+/* Usage */
+getAdUnitsByStatement('WHERE parentId IS NULL LIMIT 500');
+
+```
+In a simpler JSON API, it might look more like this:
+
+```
+POST /getAdUnitsByStatement HTTP/1.1
+HOST: api.example.com
+Content-Type: application/json
+
+{"filter": "WHERE parentId IS NULL LIMIT 500"}
+```
+
+### What are they for
+
+- RPC-based APIs are great for actions.
+- REST-based APIs are great for modeling your domain (that is, resources or entities), making CRUD (create, read, update, delete) available for all of your data.
+
+REST is not only CRUD, but things are done through mainly CRUD-based operations. REST will use HTTP methods such as GET, POST, PUT, DELETE, OPTIONS and, hopefully, PATCH to provide semantic meaning for the intention of the action being taken.
+
+RPC, however, would not do that. Most use only GET and POST, with GET being used to fetch information and POST being used for everything else.
+
+For example, if you want to “Send a message” to a user, RPC would be this:
+
+```
+POST /SendUserMessage HTTP/1.1
+Host: api.example.com
+Content-Type: application/json
+
+{"userId": 501, "message": "Hello!"}
+```
+
+But in REST, the same action would be this:
+
+```
+POST /users/501/messages HTTP/1.1
+Host: api.example.com
+Content-Type: application/json
+
+{"message": "Hello!"}
+```
+
+There’s quite a conceptual difference here, even if they look rather similar:
+- RPC. We are sending a message, and that might end up storing something in the database to keep a history, which might be another RPC call with possibly the same field names — who knows?
+- REST. We are creating a message resource in the user’s messages collection. We can see a history of these easily by doing a GET on the same URL, and the message will be sent in the background.
+
+If an API is mostly actions, maybe it should be RPC.
+If an API is mostly CRUD and is manipulating related data, maybe it should be REST.
+
+
+
+
+

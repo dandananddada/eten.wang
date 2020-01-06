@@ -14,7 +14,7 @@ const GamesTemplate = ({ pageContext }) => {
             const image = imageSource(year, name)
             return (
                 <Styled.Game key={name}>
-                    <Styled.Image src={image}></Styled.Image>
+                    <Styled.Image image={image}></Styled.Image>
                     <Styled.BottomContainer>
                         <Styled.Score> {score} </Styled.Score>
                         <Styled.Content>
