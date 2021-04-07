@@ -63,31 +63,30 @@ exports.createPages = async ({ actions, graphql }) => {
   }
 
   const ROOT_PATH = '/posts'
-  const BlogContentsTamplate = path.resolve(`src/templates/blog/contents.js`)
   const BlogPageTemplate = path.resolve(`src/templates/blog/page.js`)
+  const BlogContentTamplate = path.resolve(`src/templates/blog/content.js`)
   const posts = markdownResult.data.allMarkdownRemark.edges
   const postsPerPage = 12
   const numPages = Math.ceil(posts.length / postsPerPage)
   Array.from({ length: numPages }).forEach((_, i) => {
-    const page = i+1
+    const page = i + 1
     createPage({
       path: i === 0 ? ROOT_PATH : `${ROOT_PATH}/${page}`,
-      component: BlogContentsTamplate,
+      component: BlogPageTemplate,
       context: {
         limit: postsPerPage,
         offset: i * postsPerPage,
-        prevPage: i < 1 ? '' : i,
+        prevPage: i <= 2 ? '' : i,
         nextPage: numPages <= page ? '' : page + 1
       }
     })
   }) 
-  posts.forEach(({ node }) => {
+  posts.forEach(({ node }) => { // blog content
     const { path: location, category } = node.frontmatter
     const path = `${ROOT_PATH}/${category}/${location}`
-    // page.js
     createPage({
       path,
-      component: BlogPageTemplate,
+      component: BlogContentTamplate,
       context: {
         location,
         category

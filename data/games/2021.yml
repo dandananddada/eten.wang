@@ -1,0 +1,6 @@
+data:
+  year: 2021
+  games:
+  - name: '勇气默示录 2'
+    score: 9
+    platform: 'Switch'

@@ -26,7 +26,7 @@ export default function BlogContentsTamplate ({ pageContext, data, // this prop 
             <ul className="post-list">
               {posts.map(({ node }) => {
                 const { path, category, date, title, summary } = node.frontmatter
-                const link = `${PATH}${category}/${path}/`
+                const link = `${PATH}/${category}/${path}/`
                 return (
                   <li className="post" key={title}>
                     <span className="post-meta">{ date }</span>
@@ -40,10 +40,10 @@ export default function BlogContentsTamplate ({ pageContext, data, // this prop 
             </ul>
             <div className="pagination clearfix mb1 mt4">
               <div className="left">
-                { link(prevPage, 'Previous') }
+                { link(`/${prevPage}`, 'Previous') }
               </div>
               <div className="right">
-                { link(nextPage, 'Next') }
+                { link(`/${nextPage}`, 'Next') }
               </div>
             </div>
           </div>
