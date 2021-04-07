@@ -96,3 +96,9 @@ export const Name = styled.p`
   font-family: MFDianHei_Noncommercial-Regular;
   font-weight: 400;
 `
+export const Platinum = styled.p`
+  margin: ${WH(2)} 0 ${WH(3)};
+  color: #010101;
+  background-image: url(https://eten-wang.oss-cn-beijing.aliyuncs.com/games/icon/platinum.jpeg)
+  font-size: ${WH(16)};
+`

@@ -1,0 +1,13 @@
+---
+layout: post
+category: frontend
+date:   2019-10-10
+path: design 
+title: 设计
+summary: '.'
+---
+
+## 设计的四条基本原则
+
+### 关于命名的重要性
+约瑟夫树

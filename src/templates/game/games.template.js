@@ -10,7 +10,7 @@ const GamesTemplate = ({ pageContext }) => {
       <Styled.Games>
         <Styled.Title>{year} Games</Styled.Title>
         { games && games.map(game => {
-            const { name, score, platform } = game
+            const { name, score, platform, platinum } = game
             const image = imageSource(year, name)
             return (
                 <Styled.Game key={name}>
@@ -20,6 +20,7 @@ const GamesTemplate = ({ pageContext }) => {
                         <Styled.Content>
                             <Styled.Platform>{platform}</Styled.Platform>
                             <Styled.Name>{name}</Styled.Name>
+                            { platinum && (<Styled.Platinum></Styled.Platinum>) }
                         </Styled.Content>
                     </Styled.BottomContainer>
                 </Styled.Game>

@@ -1,0 +1,171 @@
+---
+layout: post
+category: frontend
+date:   2021-03-05
+path: design 
+title: 设计
+summary: '.'
+---
+## 字体类型
+### OldStyle
+旧式体是一种手写字体，因此字体曲线上有由粗到细的细节变化（thick/thin transition），贯穿曲线最细的两点的线叫做对角线（Diagonal Stress）。
+OldStyle 有衬线（Serif），通常小写字母的衬线都存在一定的倾斜角度
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/AFDC266FA1B2A8BE9A9C3AFFDF79C0FD.jpg)
+如果你录入了大量的文本希望用户阅读，那适合使用 OldStyle 字体。
+
+### Modern
+现代体不再效仿手写字体，相对的它展现出一种冰冷优雅的样子。
+它也有衬线，但是相对的衬线变得更加细，而且是水平的不再倾斜。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/E6A03FB9844AFD185D0A76727E384134.jpg)
+现代体外观醒目，因为强烈的粗细变化导致现代体不太适合用于需要阅读大量文本的场景。
+
+### Slab serif
+粗衬线体几乎没有粗细变化，它呈现出干净直观的样子，通常用于儿童读物。
+它也可以用于展示大量文本的场景，但是因为整体比旧式体要粗，所以页面看起来更黑。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/B52F44C8AE18E31BF037398AE0AA661F.jpg)
+
+### Sans serif
+无衬线字体，Sans 在法语中表示无，所以无衬线字体没有衬线。
+无衬线字体也没有粗细过渡，
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/DFD576EDDA76777D701EEA4A82B636D1.jpg)
+
+### Script
+手写体，手写体看起来像是用毛笔活着签字笔书写出来的
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/7C6E43457010CE76ED8B219D95736FEB.jpg)
+手写体有点像芝士蛋糕，应该尽量少用（也不要应用于大写单词），不然会显得有些恶心，但是使用大号的手写字体会给人留下深刻印象
+
+### Decorative
+花体，花体字很容易区分出来，取决于你使用的场景和目的，花体可以传达鲜明的情绪，甚至可以传达出跟你第一印象完全不同的含义。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/85B2DCC316F0D0CCC29638F1016FFCB5.jpg)
+对于花体的使用要有所限制，通常可以用于名人名言。
+
+## 字体排版
+### 符号排版
+
+标点符号后面使用一个空格，老的字体排版使用两个空格，两个空格带来的字体缺口影响阅读，而且看起来老旧笨拙。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/45CBF5651251C42374BEE81F29FAAFD9.jpg)
+
+**引号和撇号**
+引号使用字体排版引号（typographer quation）而不是打字机引号（typewriter quotation）
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/D531A1B5BFE81F914C9D9683BC9DE338.jpg)
+同理，撇号也有同样的问题。
+
+**连接号**
+连字符（Hyphen），用于连接单词：`old-looking critters` 
+一字线（En dash），和大写字母 N 宽度差不多，用于表示持续时间，等同于 `to`，两边不是用空格。`October-December`，`7-12 years of age`。
+破折号（Em Dash）长度是一字线的两倍，通常用来表示思想突然变化（汉语中通常用于解释说明、话题转变、长音等）。
+
+**特殊符号**
+
+### 大写（Capitals）
+大写通常都要比小写难以阅读，通常我们识别英文字体不光靠字母和字母的分组，也依赖于字母的形状。当一组字母全部大写的时候我们没有办法根据形状区分字母，只能一个一个的阅读。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/46C0F7CAE24795FE3006C1BC8ACB11F7.jpg)
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/3A450031D16D89E9DA38E8C1C4AA4CD6.jpg)
+
+### 下划线（Underline）
+不要使用下划线，下划线最初是打字员用来告诉排版人员哪些子需要斜体印刷而使用的标记，现在已经不需要这种标记，可以直接使用斜体或者粗体排版。
+
+### 字距调整（Kerning）
+字句调整是指挪动字符使字符间间距一致，从而使视觉上是连贯的，间距调整无非通过计算机自动完成，需要人工调整。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/30C075284DA2C8D107F43EA15116C54D.jpg)
+
+### 寡妇和孤儿（Window and orphans）
+寡妇（Window）是指最后段落字符数少于 7 个的段落，简单的理解就是鼓励的词。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/4EC78373FD6595FF00C17D6923C604ED.jpg)
+孤儿（Orphans）是指段落过长导致在下一页或下一栏开始结束处的段落，简单的理解就是孤立的段落。
+为了避免寡妇和孤儿可能需要重新编辑文本，增加或减少一部分词汇，也可以通过调整标点符号或者减少页面空白区域来调整，无论如何都需要进行调整避免产生寡妇和孤儿的情况。
+
+### 字体组合
+采用相同的字体系列页面看起来更加协调；采用两到三个字体系列，页面看起来会有些冲突；如果字体元素之间截然不同，则会产生对比。
+协调的字体组合简单易用，尽量避免冲突的字体组合，对比用来强调，需要一定的设计。
+
+### 其他
+如果使用了不同的字体样式，注意标点符号要保持同样的字体样式。同时跟随在加粗文字后面的冒号也需要加粗。
+
+注意括号内的标点符号使用。
+- 如果括号内的句子是整句，标点符号应该在句子内
+- 如果括号内文字是句子的一部分，标点符号应该在句子外面
+
+段落使用 1em 间距作为缩进。汉语中通常使用四个空格，即两个汉字宽度。同时也可以使用换行作为段落的划分，两种区分方式可以采用其中一种。
+
+首段，跟随在题目或小标题后面的首段可以不使用缩进。
+
+方框内的文字要留出间距，同时保证四周空白间距一致。
+
+列表项使用项目符号或者装饰符号，不要使用连字符。
+
+## 字体对比
+
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/04C099741392D348D810BD54DAC57021.jpg)
+### 字号
+
+为了有效地使用字体对比，要尽量使用差距鲜明的字体组合，比如 12 磅和 14 磅的字体对比只会产生冲突。所以使用字体大小差距就使差异明显些。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/0B8C5831AC0246EEFDA7085B4F8CF339.jpg)
+
+同样字号对比也不只限于使用大号字体，小号字体也同样可以产生对比的效果。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/467D1B9B434D067FD15198BDA906574B.jpg)
+
+对于大写字母要注意，同样的字体大小大写字母看上去要更大些。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/F043D7B4EBD2136B46DD88C130E0A376.jpg)
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/C5647573A099F6CF8C6CDD669C3A9665.jpg)
+小写字母要放大到 30Points 才能显得跟大写字母 20Points 差不多大。
+
+### 字重
+大多数字体系列都提供了多种字重，同样也不要把常规体和半粗体对比。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/5B832DC8F744A4D681A5CD092CD46D06.jpg)
+
+字重不仅可以强调差异，也可以用于信息组织。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/C440376A23AC70C1A56C6A9D29E0493B.jpg)
+
+对于大篇幅文字也可以使用字重来强调出重要信息，同时吸引读者阅读。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/E3BFDF637BFCEC63120C86EF1F371CE0.jpg)
+
+### 结构
+如果想组合不同的字体类型可以使用不同结构的字体。切记不要把同一字体类别的两种字体放在同一个页面中。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/79D4D7DF8362726115FDAAC0E0644120.jpg)
+上图中即便使用了五种不同的字体也不会看起来太坏，因为使用了五种不同的字体类别。
+
+选择不同字体类别的简单方法就是选择一种衬线字体和一种非衬线字体，衬线体在结构中本身存在着粗/细对比，无衬线体往往有一致的粗细。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/68E15D54C8404D5A504F338E2E74E615.jpg)
+当然单纯的字体类别并不能完全展现出差异，要适当加上字号和字重。
+
+在一个页面上使用两种无衬线字体非常困难，因为无衬线字体看起来差别不大，因为都是没有粗细变化的字体。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/35CA2CFAB7E2E523FA0CC33AECBADC92.jpg)
+
+### 形状
+字体类别有相同的结构但是不同的形状。一种简单的方式是使用大小写字母对比。
+
+全大写字母和全小写字母是完全不同的形状，但不同字体的全大写是一样的，都是长方形。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/F1FE0B0420A355E5096FEBACC322DE3E.jpg)
+
+另外一种形状对比的方式是罗马体和斜体的对比。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/347FD86B72A99BD1BC52DFF25AF592B9.jpg)
+
+### 方向
+字体倾斜确实能够很明显的体现出差异，但是尽量不要这样做，除非有明确的设计意图。
+- 向上倾斜的字体产生一种前进的动力
+- 向下倾斜的字体会产生相反的力量
+有时可以利用这种含义设计字体。
+
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/8F882075BE31327542DC1AB6E0EC1BEA.jpg)
+
+另外绝对不要在角落使用倾斜字体。
+
+方向不只限定于字体的倾斜上，可以使用一行水平字体配合一列瘦高排列的字体形成方向上的变化。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/DE9BFA7B02913AC86F8E9FFE730438E4.jpg)
+
+下面的例子，在水平图片上使用垂直排列的字体产生方向变化。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/909DB917D56D1A2C7596074EA751D49D.jpg)
+
+### 颜色
+和方向一样，颜色也是一种明显的对比方式，颜色区分为冷色和暖色。
+眼睛更容易被暖色吸引，所以一点红色就能形成鲜明对比，相反的冷色则是远离型的，它总是在视觉中后退。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/DDF97CEF28A06763858515E4CAA7E574.jpg)
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/519C50A9FE74F262647F3F99E4A9E751.jpg)
+
+除了普遍意义上多彩的颜色，黑白本身也是颜色。
+如下新闻报纸中，大量的文本信息，会让页面看上去灰蒙蒙一片，令人感到乏味不想阅读。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/BFA1FFDFD51649B6AB1B2B84CEAC2098.jpg)
+
+如果对标题和子标题加粗，使它显得更“黑”，或者对引用设置不同的灰度，页面色彩就变得丰富起来，从而更加吸引读者去阅读。
+![IMAGE](https://eten-wang.oss-cn-beijing.aliyuncs.com/blogs/2021-03-08/A026EE96CB1801244D0F7CB4FA77F89E.jpg)
